@@ -101,16 +101,18 @@ export default function BenefitsSection() {
                                 transition={{ duration: 0.5, ease: 'easeOut' }}
                                 whileHover={{ y: -8, scale: 1.02 }}
                             >
-                                <Card className="border-0 bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300">
-                                    <CardContent className="space-y-6 p-8 text-center">
-                                        <motion.div
-                                            className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-800"
-                                            whileHover={{ scale: 1.1, rotate: -10 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            <benefit.icon className="h-8 w-8 text-white" />
-                                        </motion.div>
-                                        <h3 className="text-xl font-bold text-slate-800">{benefit.title}</h3>
+                                <Card className="h-full border-0 bg-white/80 shadow-lg backdrop-blur-sm transition-all duration-300">
+                                    <CardContent className="flex h-full flex-col justify-between space-y-6 p-8 text-center">
+                                        <div className="space-y-6">
+                                            <motion.div
+                                                className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-800"
+                                                whileHover={{ scale: 1.1, rotate: -10 }}
+                                                transition={{ duration: 0.3 }}
+                                            >
+                                                <benefit.icon className="h-8 w-8 text-white" />
+                                            </motion.div>
+                                            <h3 className="text-xl font-bold text-slate-800">{benefit.title}</h3>
+                                        </div>
                                         <p className="leading-relaxed text-slate-600">{benefit.description}</p>
                                     </CardContent>
                                 </Card>

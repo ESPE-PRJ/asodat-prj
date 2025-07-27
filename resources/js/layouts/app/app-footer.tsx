@@ -3,7 +3,7 @@ import { Mail, MapPin, Users } from 'lucide-react';
 
 export default function AppFooter() {
     return (
-        <footer className="bg-gradient-to-br from-slate-800 to-slate-900 py-16 text-white">
+        <footer className="pn-8 bg-gradient-to-br from-slate-800 to-slate-900 pt-16 pb-8 text-white">
             <div className="container mx-auto px-4 lg:px-6">
                 <div className="grid gap-8 md:grid-cols-4">
                     <div className="space-y-4">
@@ -66,7 +66,7 @@ export default function AppFooter() {
                                 <span className="text-slate-300">+1 (555) 123-4567</span>
                             </div> */}
                             <div className="flex items-center space-x-3">
-                                <MapPin className="h-5 w-5 text-blue-400" />
+                                <MapPin className="h-8 w-8 text-blue-400" />
                                 <span className="text-slate-300">Universidad de las Fuerzas Armadas ESPE - Sede Latacunga</span>
                             </div>
                         </div>
