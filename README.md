@@ -39,7 +39,7 @@ Sistema de gestión desarrollado con Laravel y Filament para ASODAT.
    touch database/database.sqlite
    ```
    
-   > **Nota**: En producción se utilizará **PostgreSQL**
+   > **Nota**: En producción se utilizará **MySQL**
 
 6. **Ejecutar migraciones**
    ```bash
@@ -78,7 +78,7 @@ php artisan view:clear
 ## 🗄️ Base de Datos
 
 - **Desarrollo**: SQLite (`database/database.sqlite`)
-- **Producción**: PostgreSQL
+- **Producción**: MySQL
 
 ### Migraciones
 ```bash
@@ -97,5 +97,6 @@ php artisan migrate:fresh --seed
 - **Laravel** 12.x
 - **Filament** 3.x - Panel de administración
 - **Livewire** - Componentes reactivos
+- **React**
 - **Tailwind CSS** - Framework CSS
 - **Vite** - Build tool

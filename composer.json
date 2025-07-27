@@ -1,29 +1,26 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/livewire-starter-kit",
+    "name": "espe/asodat-refactor",
     "type": "project",
-    "description": "The official Laravel starter kit for Livewire.",
-    "keywords": [
-        "laravel",
-        "framework"
-    ],
+    "description": "ASODAT Refactor",
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "filament/filament": "3.3",
-        "laravel/framework": "^12.0",
+        "filament/filament": "3.3.33",
+        "inertiajs/inertia-laravel": "^2.0.4",
+        "laravel/framework": "^12.21",
         "laravel/tinker": "^2.10.1",
-        "livewire/flux": "^2.2",
-        "livewire/volt": "^1.7.0",
-        "predis/predis": "^3.1"
+        "livewire/livewire": "^3.6.4",
+        "predis/predis": "^3.1",
+        "tightenco/ziggy": "^2.5.3"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.18",
-        "laravel/sail": "^1.41",
+        "fakerphp/faker": "^1.24",
+        "laravel/pail": "^1.2.3",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.44",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
+        "nunomaduro/collision": "^8.8",
         "phpunit/phpunit": "^11.5.3"
     },
     "autoload": {
@@ -58,6 +55,11 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "dev:ssr": [
+            "npm run build:ssr",
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
         ],
         "test": [
             "@php artisan config:clear --ansi",
