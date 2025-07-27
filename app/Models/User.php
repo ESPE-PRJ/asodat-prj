@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
-use OwenIt\Auditing\Auditable;
 
-class User extends Authenticatable implements AuditableContract
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, Auditable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,11 +19,9 @@ class User extends Authenticatable implements AuditableContract
      * @var list<string>
      */
     protected $fillable = [
-        'socio_id',
+        'name',
         'email',
         'password',
-        'rol',
-        'ultimo_login',
     ];
 
     /**
@@ -38,11 +34,6 @@ class User extends Authenticatable implements AuditableContract
         'remember_token',
     ];
 
-
-    public function socio()
-    {
-        return $this->belongsTo(Socio::class);
-    }
     /**
      * Get the attributes that should be cast.
      *
@@ -56,7 +47,6 @@ class User extends Authenticatable implements AuditableContract
         ];
     }
 
-
     /**
      * Get the user's initials
      */
@@ -65,7 +55,7 @@ class User extends Authenticatable implements AuditableContract
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn($word) => Str::substr($word, 0, 1))
+            ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 }
