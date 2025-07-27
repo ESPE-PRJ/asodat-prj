@@ -17,9 +17,7 @@ export default function AppNavbar() {
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800">
                             <Users className="h-6 w-6 text-white" />
                         </div>
-                        <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-xl font-bold text-transparent">
-                            Asociación Pro
-                        </span>
+                        <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-xl font-bold text-transparent">ASODAT</span>
                     </div>
 
                     <div className="hidden items-center space-x-8 md:flex">
@@ -27,16 +25,16 @@ export default function AppNavbar() {
                             Inicio
                         </a>
                         <a href="#historia" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
-                            Historia
-                        </a>
-                        <a href="#mision" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
-                            Misión
-                        </a>
-                        <a href="#objetivos" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
-                            Objetivos
+                            Servicios
                         </a>
                         <a href="#beneficios" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                             Beneficios
+                        </a>
+                        <a href="#mision" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            Afiliación
+                        </a>
+                        <a href="#objetivos" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            Noticias
                         </a>
                         <a href="/admin">
                             <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800">
@@ -45,9 +43,9 @@ export default function AppNavbar() {
                         </a>
                     </div>
 
-                    <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    <Button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                         {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                    </button>
+                    </Button>
                 </div>
 
                 {/* Mobile Menu */}

@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Users } from 'lucide-react';
+import { Mail, MapPin, Users } from 'lucide-react';
 
 export default function AppFooter() {
     return (
@@ -50,22 +50,25 @@ export default function AppFooter() {
                         <div className="space-y-3">
                             <div className="flex items-center space-x-3">
                                 <Mail className="h-5 w-5 text-blue-400" />
-                                <span className="text-slate-300">info@asociacionpro.com</span>
+                                <span className="text-slate-300">asodat@espe.edu.ec</span>
                             </div>
-                            <div className="flex items-center space-x-3">
+                            {/* <div className="flex items-center space-x-3">
                                 <Phone className="h-5 w-5 text-blue-400" />
                                 <span className="text-slate-300">+1 (555) 123-4567</span>
-                            </div>
+                            </div> */}
                             <div className="flex items-center space-x-3">
                                 <MapPin className="h-5 w-5 text-blue-400" />
-                                <span className="text-slate-300">Ciudad Empresarial, CP 12345</span>
+                                <span className="text-slate-300">Universidad de las Fuerzas Armadas ESPE - Sede Latacunga</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="mt-12 border-t border-slate-700 pt-8 text-center">
-                    <p className="text-slate-300">© {new Date().getFullYear()} Asociación Pro. Todos los derechos reservados.</p>
+                    <p className="text-slate-300">
+                        © {new Date().getFullYear()} ASODAT - Asociación de Docentes, Personal Administrativo y Trabajadores de la ESPE sede
+                        Latacunga.
+                    </p>
                 </div>
             </div>
         </footer>
