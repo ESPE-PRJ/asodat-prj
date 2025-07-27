@@ -10,34 +10,34 @@ export default function AppNavbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="fixed top-0 z-50 w-full border-b border-blue-100 bg-white/95 backdrop-blur-md transition-all duration-300">
+        <nav className="fixed top-0 z-50 w-full border-b border-blue-100 bg-gradient-to-br from-slate-800 to-slate-900 backdrop-blur-md transition-all duration-300">
             <div className="container mx-auto px-4 lg:px-6">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800">
                             <Users className="h-6 w-6 text-white" />
                         </div>
-                        <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-xl font-bold text-transparent">ASODAT</span>
+                        <span className="text-xl font-bold text-white">ASODAT</span>
                     </div>
 
                     <div className="hidden items-center space-x-8 md:flex">
-                        <a href="#inicio" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        <a href="/#inicio" className="font-medium text-slate-300 transition-colors hover:text-white">
                             Inicio
                         </a>
-                        <a href="#historia" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
-                            Servicios
-                        </a>
-                        <a href="#beneficios" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        <a href="/#beneficios" className="font-medium text-slate-300 transition-colors hover:text-white">
                             Beneficios
                         </a>
-                        <Link href="/afiliacion" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        <Link href={route('services')} className="font-medium text-slate-300 transition-colors hover:text-white">
+                            Servicios
+                        </Link>
+                        <Link href={route('memberships')} className="font-medium text-slate-300 transition-colors hover:text-white">
                             Afiliación
                         </Link>
-                        <Link href="/noticias" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        <Link href={route('news')} className="font-medium text-slate-300 transition-colors hover:text-white">
                             Noticias
                         </Link>
                         <a href="/admin">
-                            <Button>{auth.user ? 'Dashboard' : 'Log in'}</Button>
+                            <Button>{auth.user ? 'Dashboard' : 'Iniciar sesión'}</Button>
                         </a>
                     </div>
 
@@ -50,23 +50,23 @@ export default function AppNavbar() {
                 {isMenuOpen && (
                     <div className="absolute top-16 right-0 left-0 border-b border-blue-100 bg-white shadow-lg md:hidden">
                         <div className="flex flex-col space-y-4 p-4">
-                            <a href="#inicio" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            <a href="/#inicio" className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Inicio
                             </a>
-                            <a href="#historia" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
-                                Servicios
-                            </a>
-                            <a href="#beneficios" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            <a href="/#beneficios" className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Beneficios
                             </a>
-                            <Link href="/afiliacion" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            <Link href={route('services')} className="font-medium text-slate-300 transition-colors hover:text-white">
+                                Servicios
+                            </Link>
+                            <Link href={route('memberships')} className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Afiliación
                             </Link>
-                            <Link href="/noticias" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                            <Link href={route('news')} className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Noticias
                             </Link>
                             <a href="/admin">
-                                <Button>{auth.user ? 'Dashboard' : 'Log in'}</Button>
+                                <Button>{auth.user ? 'Dashboard' : 'Iniciar sesión'}</Button>
                             </a>
                         </div>
                     </div>

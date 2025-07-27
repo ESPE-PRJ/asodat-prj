@@ -11,7 +11,7 @@ export default function AppFooter() {
                             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800">
                                 <Users className="h-6 w-6 text-white" />
                             </div>
-                            <span className="text-xl font-bold">Asociación Pro</span>
+                            <span className="text-xl font-bold">ASODAT</span>
                         </div>
                         <p className="leading-relaxed text-slate-300">
                             Construyendo el futuro profesional a través de la excelencia, innovación y colaboración.
@@ -21,19 +21,19 @@ export default function AppFooter() {
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold">Enlaces Rápidos</h3>
                         <div className="space-y-2">
-                            <a href="#inicio" className="block text-slate-300 transition-colors hover:text-white">
+                            <a href="/#inicio" className="block text-slate-300 transition-colors hover:text-white">
                                 Inicio
                             </a>
-                            <a href="#historia" className="block text-slate-300 transition-colors hover:text-white">
+                            <a href="/#historia" className="block text-slate-300 transition-colors hover:text-white">
                                 Historia
                             </a>
-                            <a href="#mision" className="block text-slate-300 transition-colors hover:text-white">
+                            <a href="/#mision" className="block text-slate-300 transition-colors hover:text-white">
                                 Misión y Visión
                             </a>
-                            <a href="#objetivos" className="block text-slate-300 transition-colors hover:text-white">
+                            <a href="/#objetivos" className="block text-slate-300 transition-colors hover:text-white">
                                 Objetivos
                             </a>
-                            <a href="#galeria" className="block text-slate-300 transition-colors hover:text-white">
+                            <a href="/#galeria" className="block text-slate-300 transition-colors hover:text-white">
                                 Galería
                             </a>
                         </div>
@@ -42,13 +42,13 @@ export default function AppFooter() {
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold">Recursos</h3>
                         <div className="space-y-2">
-                            <Link href="/servicios" className="block text-slate-300 transition-colors hover:text-white">
+                            <Link href={route('services')} className="block text-slate-300 transition-colors hover:text-white">
                                 Servicios
                             </Link>
-                            <Link href="/afiliacion" className="block text-slate-300 transition-colors hover:text-white">
+                            <Link href={route('memberships')} className="block text-slate-300 transition-colors hover:text-white">
                                 Afiliación
                             </Link>
-                            <Link href="/noticias" className="block text-slate-300 transition-colors hover:text-white">
+                            <Link href={route('news')} className="block text-slate-300 transition-colors hover:text-white">
                                 Noticias
                             </Link>
                         </div>
