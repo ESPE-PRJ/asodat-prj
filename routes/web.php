@@ -1,13 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('welcome');
 })->name('home');
 
-// Redirigir dashboard a Filament Admin
-Route::get('dashboard', function () {
-    return redirect('/admin');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// require __DIR__.'/settings.php';
+// require __DIR__.'/auth.php';
