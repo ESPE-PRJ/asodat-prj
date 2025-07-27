@@ -42,6 +42,14 @@ return [
             'synchronous' => null,
         ],
 
+        'old'=> [
+            'driver' => 'sqlite',
+            'url' => null,
+            'database' => env('DB_OLD_DATABASE', database_path('old.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => false,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),

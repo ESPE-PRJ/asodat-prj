@@ -18,7 +18,7 @@ return new class extends Migration {
 
 
             $table
-                ->enum('rol', ['socio', 'admin'])
+                ->enum('rol', ['socio', 'secretaria', 'presidente'])
                 ->after('password')
                 ->default('socio');
 
