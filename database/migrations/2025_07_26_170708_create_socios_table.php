@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('socios', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula', 15)->unique();
+            $table->string('cedula', 10)->unique();
             $table->string('nombres', 100);
             $table->string('apellidos', 100);
             $table->string('campus', 50)->nullable();
