@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { Mail, MapPin, Users } from 'lucide-react';
 
 export default function AppFooter() {
@@ -32,16 +33,24 @@ export default function AppFooter() {
                             <a href="#objetivos" className="block text-slate-300 transition-colors hover:text-white">
                                 Objetivos
                             </a>
+                            <a href="#galeria" className="block text-slate-300 transition-colors hover:text-white">
+                                Galería
+                            </a>
                         </div>
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Servicios</h3>
+                        <h3 className="text-lg font-semibold">Recursos</h3>
                         <div className="space-y-2">
-                            <p className="text-slate-300">Desarrollo Profesional</p>
-                            <p className="text-slate-300">Networking</p>
-                            <p className="text-slate-300">Certificaciones</p>
-                            <p className="text-slate-300">Eventos Exclusivos</p>
+                            <Link href="/servicios" className="block text-slate-300 transition-colors hover:text-white">
+                                Servicios
+                            </Link>
+                            <Link href="/afiliacion" className="block text-slate-300 transition-colors hover:text-white">
+                                Afiliación
+                            </Link>
+                            <Link href="/noticias" className="block text-slate-300 transition-colors hover:text-white">
+                                Noticias
+                            </Link>
                         </div>
                     </div>
 

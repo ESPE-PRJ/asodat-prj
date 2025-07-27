@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Menu, Users, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -30,16 +30,14 @@ export default function AppNavbar() {
                         <a href="#beneficios" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                             Beneficios
                         </a>
-                        <a href="#mision" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        <Link href="/afiliacion" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                             Afiliación
-                        </a>
-                        <a href="#objetivos" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                        </Link>
+                        <Link href="/noticias" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                             Noticias
-                        </a>
+                        </Link>
                         <a href="/admin">
-                            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800">
-                                {auth.user ? 'Dashboard' : 'Log in'}
-                            </Button>
+                            <Button>{auth.user ? 'Dashboard' : 'Log in'}</Button>
                         </a>
                     </div>
 
@@ -52,25 +50,23 @@ export default function AppNavbar() {
                 {isMenuOpen && (
                     <div className="absolute top-16 right-0 left-0 border-b border-blue-100 bg-white shadow-lg md:hidden">
                         <div className="flex flex-col space-y-4 p-4">
-                            <a href="#inicio" className="text-slate-700 transition-colors hover:text-blue-600">
+                            <a href="#inicio" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                                 Inicio
                             </a>
-                            <a href="#historia" className="text-slate-700 transition-colors hover:text-blue-600">
-                                Historia
+                            <a href="#historia" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                                Servicios
                             </a>
-                            <a href="#mision" className="text-slate-700 transition-colors hover:text-blue-600">
-                                Misión
-                            </a>
-                            <a href="#objetivos" className="text-slate-700 transition-colors hover:text-blue-600">
-                                Objetivos
-                            </a>
-                            <a href="#beneficios" className="text-slate-700 transition-colors hover:text-blue-600">
+                            <a href="#beneficios" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
                                 Beneficios
                             </a>
+                            <Link href="/afiliacion" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                                Afiliación
+                            </Link>
+                            <Link href="/noticias" className="font-medium text-slate-700 transition-colors hover:text-blue-600">
+                                Noticias
+                            </Link>
                             <a href="/admin">
-                                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-                                    {auth.user ? 'Dashboard' : 'Log in'}
-                                </Button>
+                                <Button>{auth.user ? 'Dashboard' : 'Log in'}</Button>
                             </a>
                         </div>
                     </div>

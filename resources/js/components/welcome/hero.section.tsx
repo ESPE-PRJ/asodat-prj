@@ -42,10 +42,7 @@ export default function HeroSection() {
                         >
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 <a href="#historia">
-                                    <Button
-                                        size="lg"
-                                        className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-3 text-lg text-white hover:from-blue-700 hover:to-blue-800"
-                                    >
+                                    <Button size="lg">
                                         Conoce Más
                                         <ChevronRight className="ml-2 h-5 w-5" />
                                     </Button>
@@ -62,10 +59,10 @@ export default function HeroSection() {
                     >
                         <motion.div className="relative" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
                             <img
-                                src="https://picsum.photos/500/600.webp"
+                                src="https://picsum.photos/700/400.webp"
                                 alt="Asociación Profesional"
-                                width={500}
-                                height={600}
+                                width={700}
+                                height={400}
                                 className="rounded-2xl shadow-2xl"
                             />
                         </motion.div>
