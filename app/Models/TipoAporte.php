@@ -12,6 +12,7 @@ class TipoAporte extends Model implements AuditableContract
     use Auditable;
 
     protected $table ="tipos_aporte";
+    public $timestamps = false;
 
     protected $fillable = [
         'clave',
