@@ -9,6 +9,6 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        return Inertia::render('Welcome');
+        return Inertia::render('welcome');
     }
 }
