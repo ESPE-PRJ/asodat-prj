@@ -45,7 +45,17 @@ class SociosCsvSeeder extends Seeder
         $cuposPath = database_path('data/cupossocios_old.csv');
         $cupos = [];
         if (file_exists($cuposPath)) {
-            $f = new \SplFileObject($cuposPath); // Abre el CSV
+            // Leer y convertir codificación del archivo de cupos
+            $cuposContent = file_get_contents($cuposPath);
+            $cuposEncoding = mb_detect_encoding($cuposContent, ['UTF-8', 'ISO-8859-1', 'Windows-1252'], true);
+            if ($cuposEncoding && $cuposEncoding !== 'UTF-8') {
+                $cuposContent = mb_convert_encoding($cuposContent, 'UTF-8', $cuposEncoding);
+            }
+
+            $cuposTempFile = tempnam(sys_get_temp_dir(), 'cupos_utf8_');
+            file_put_contents($cuposTempFile, $cuposContent);
+
+            $f = new \SplFileObject($cuposTempFile); // Abre el CSV
             $f->setFlags(
                 \SplFileObject::READ_CSV |
                 \SplFileObject::SKIP_EMPTY |
@@ -70,6 +80,11 @@ class SociosCsvSeeder extends Seeder
             $this->command->warn("No encontré cupossocios en: {$cuposPath}");
         }
 
+        // Limpiar archivo temporal de cupos
+        if (isset($cuposTempFile) && file_exists($cuposTempFile)) {
+            unlink($cuposTempFile);
+        }
+
         $this->command->info("→ Leyendo CSV de socios…");
 
         // 2) Carga socios y les aplica cupo
@@ -79,7 +94,20 @@ class SociosCsvSeeder extends Seeder
             return;
         }
 
-        $file = new \SplFileObject($path);
+        // Leer el archivo completo y convertir codificación
+        $csvContent = file_get_contents($path);
+
+        // Detectar y convertir la codificación
+        $encoding = mb_detect_encoding($csvContent, ['UTF-8', 'ISO-8859-1', 'Windows-1252'], true);
+        if ($encoding && $encoding !== 'UTF-8') {
+            $csvContent = mb_convert_encoding($csvContent, 'UTF-8', $encoding);
+        }
+
+        // Crear archivo temporal con codificación correcta
+        $tempFile = tempnam(sys_get_temp_dir(), 'socios_utf8_');
+        file_put_contents($tempFile, $csvContent);
+
+        $file = new \SplFileObject($tempFile);
         $file->setFlags(
             \SplFileObject::READ_CSV |
             \SplFileObject::SKIP_EMPTY |
@@ -137,6 +165,11 @@ class SociosCsvSeeder extends Seeder
             );
 
             $count++;
+        }
+
+        // Limpiar archivo temporal
+        if (isset($tempFile) && file_exists($tempFile)) {
+            unlink($tempFile);
         }
 
         $this->command->info("Importación de socios completada. Registros: {$count}");
