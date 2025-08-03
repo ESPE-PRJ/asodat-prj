@@ -71,6 +71,36 @@ class UsuariosCsvSeeder extends Seeder
             }
         }
 
+        $this->command->info("→ Cargando nombres desde cupossocios_old.csv…");
+
+        // Leer cupossocios_old.csv y crear el array de nombres
+        $cuposPath = database_path('data/cupossocios_old.csv');
+        $nombresPorCedula = [];
+        if (file_exists($cuposPath)) {
+            $cuposFile = new \SplFileObject($cuposPath);
+            $cuposFile->setFlags(
+                \SplFileObject::READ_CSV
+                | \SplFileObject::SKIP_EMPTY
+                | \SplFileObject::DROP_NEW_LINE
+            );
+            $cuposFile->setCsvControl(';', '"', '\\');
+            $hdrCupos = $cuposFile->fgetcsv();
+            $idxCedula = array_search('cedula', array_map('strtolower', $hdrCupos));
+            $idxNombre = array_search('nombrecompleto', array_map('strtolower', $hdrCupos));
+            while (!$cuposFile->eof()) {
+                $row = $cuposFile->fgetcsv();
+                if (!is_array($row) || count($row) < max($idxCedula, $idxNombre) + 1)
+                    continue;
+                $ced = preg_replace('/\D/', '', $row[$idxCedula] ?? '');
+                $nombre = trim($row[$idxNombre] ?? '');
+                if ($ced && $nombre) {
+                    $nombresPorCedula[$ced] = $nombre;
+                }
+            }
+        } else {
+            $this->command->warn("No encontré cupossocios_old.csv en: {$cuposPath}");
+        }
+
         $this->command->info("→ Importando usuarios desde socios_old.csv…");
 
         // 2) Lee el CSV de socios para crear usuarios
@@ -123,19 +153,13 @@ class UsuariosCsvSeeder extends Seeder
             // Determina rol válido
             $rol = in_array($oldRol, $allowedRoles) ? $oldRol : 'socio';
 
-            // Obtiene contraseña cruda y hashea
-            $rawPass = $passwords[$cedula] ?? null;
-            if (!$rawPass) {
-                $this->command->warn("No encontré contraseña para {$cedula}, se usará 'secret'.");
-                $rawPass = 'secret';
-            }
-            $hash = Hash::make($rawPass);
 
             User::updateOrCreate(
                 ['email' => $email],
                 [
                     'socio_id' => $socio->id,
-                    'password' => $hash,
+                    'name' => $nombresPorCedula[$cedula] ?? 'Usuario',
+                    'password' => 'MustResetPassword',
                     'rol' => $rol,
                 ]
             );

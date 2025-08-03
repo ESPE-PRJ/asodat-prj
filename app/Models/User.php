@@ -10,7 +10,7 @@ use OwenIt\Auditing\Contracts\Audit;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class User extends Authenticatable implements AuditableContract 
+class User extends Authenticatable implements AuditableContract
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, Auditable;
@@ -22,6 +22,7 @@ class User extends Authenticatable implements AuditableContract
      */
     protected $fillable = [
         'socio_id',
+        'name',
         'email',
         'password',
         'rol',
