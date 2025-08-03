@@ -23,7 +23,7 @@ export default function MembershipsPage() {
 
     return (
         <AppLayout title="Afiliación">
-            <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 py-20">
+            <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 py-16">
                 {/* Background decorative elements */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl"></div>
@@ -33,7 +33,7 @@ export default function MembershipsPage() {
 
                 <div className="relative container mx-auto px-4 lg:px-6">
                     <motion.div
-                        className="space-y-20"
+                        className="space-y-16"
                         initial={{ y: 40, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -41,41 +41,41 @@ export default function MembershipsPage() {
                     >
                         {/* Hero Section - Más altura */}
                         <motion.div
-                            className="flex min-h-[50vh] flex-col justify-center space-y-12 text-center"
+                            className="flex min-h-[50vh] flex-col justify-center space-y-8 text-center"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
                             viewport={{ once: true, amount: 0.1 }}
                         >
-                            <div className="space-y-8">
+                            <div className="space-y-6">
                                 <motion.div
-                                    className="inline-flex items-center justify-center rounded-full border border-blue-200/50 bg-blue-100/80 px-6 py-2 backdrop-blur-sm"
+                                    className="inline-flex items-center justify-center rounded-full border border-blue-200/50 bg-blue-100/80 px-4 py-2 backdrop-blur-sm"
                                     initial={{ scale: 0.8, opacity: 0 }}
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
                                     viewport={{ once: true, amount: 0.1 }}
                                 >
-                                    <Users className="mr-2 h-4 w-4 text-blue-600" />
-                                    <span className="text-sm font-medium text-blue-700">Únete a nuestra comunidad</span>
+                                    <Users className="mr-2 h-3 w-3 text-blue-600" />
+                                    <span className="text-xs font-medium text-blue-700">Únete a nuestra comunidad</span>
                                 </motion.div>
 
-                                <h1 className="text-4xl font-bold text-slate-800 md:text-6xl lg:text-7xl">
+                                <h1 className="text-3xl font-bold text-slate-800 md:text-4xl lg:text-5xl">
                                     <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
                                         AFILIACIÓN
                                     </span>
                                     <br />
-                                    <span className="text-slate-700">A ASODAT</span>
+                                    <span className="text-slate-700">ASODAT</span>
                                 </h1>
 
                                 <motion.div
-                                    className="mx-auto h-1 w-32 rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800"
+                                    className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800"
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                                     viewport={{ once: true, amount: 0.1 }}
                                 />
 
-                                <p className="mx-auto max-w-3xl text-xl leading-relaxed text-slate-600">
+                                <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
                                     Descubre cómo formar parte de nuestra asociación y acceder a todos los beneficios exclusivos para nuestros
                                     miembros.
                                 </p>
@@ -83,7 +83,7 @@ export default function MembershipsPage() {
                         </motion.div>
 
                         {/* Requirements and Benefits Grid - Diseño completamente novedoso */}
-                        <div className="space-y-16">
+                        <div className="space-y-12">
                             {/* Requisitos Section - Imagen alineada con la lista */}
                             <motion.div
                                 initial={{ x: -60, opacity: 0 }}
@@ -91,7 +91,7 @@ export default function MembershipsPage() {
                                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
                                 viewport={{ once: true, amount: 0.1 }}
                             >
-                                <div className="grid items-start gap-8 lg:grid-cols-3">
+                                <div className="grid items-start gap-6 lg:grid-cols-3">
                                     {/* Imagen lateral izquierda */}
                                     <motion.div
                                         className="order-2 lg:order-1 lg:col-span-1"
@@ -100,9 +100,9 @@ export default function MembershipsPage() {
                                         transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                                         viewport={{ once: true, amount: 0.1 }}
                                     >
-                                        <div className="relative flex h-full items-center justify-center pt-16">
+                                        <div className="relative flex h-full items-center justify-center pt-12">
                                             <motion.div
-                                                className="h-96 w-full overflow-hidden rounded-3xl"
+                                                className="h-80 w-full overflow-hidden rounded-2xl"
                                                 whileHover={{ scale: 1.02 }}
                                                 transition={{ duration: 0.3 }}
                                             >
@@ -117,30 +117,30 @@ export default function MembershipsPage() {
 
                                     {/* Contenido central */}
                                     <div className="order-1 lg:order-2 lg:col-span-2">
-                                        <div className="space-y-6">
-                                            <div className="space-y-4">
-                                                <h2 className="text-3xl font-bold text-slate-800">REQUISITOS PARA AFILIACIÓN</h2>
-                                                <div className="h-1 w-24 rounded-full bg-blue-600"></div>
+                                        <div className="space-y-4">
+                                            <div className="space-y-3">
+                                                <h2 className="text-2xl font-bold text-slate-800">REQUISITOS PARA AFILIACIÓN</h2>
+                                                <div className="h-1 w-20 rounded-full bg-blue-600"></div>
                                             </div>
 
-                                            <div className="grid gap-4">
+                                            <div className="grid gap-3">
                                                 {requirements.map((requirement, index) => (
                                                     <motion.div
                                                         key={index}
-                                                        className="group flex items-start space-x-4 rounded-xl bg-white/50 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/70"
+                                                        className="group flex items-start space-x-3 rounded-lg bg-white/50 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/70"
                                                         initial={{ x: -30, opacity: 0 }}
                                                         whileInView={{ x: 0, opacity: 1 }}
                                                         transition={{ duration: 0.6, delay: 0.4 + index * 0.1, ease: 'easeOut' }}
                                                         viewport={{ once: true, amount: 0.1 }}
                                                     >
                                                         <motion.div
-                                                            className="mt-1 flex-shrink-0"
+                                                            className="mt-0.5 flex-shrink-0"
                                                             whileHover={{ scale: 1.2 }}
                                                             transition={{ duration: 0.2 }}
                                                         >
-                                                            <Check className="h-6 w-6 text-green-600" />
+                                                            <Check className="h-4 w-4 text-green-600" />
                                                         </motion.div>
-                                                        <span className="text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
+                                                        <span className="text-sm text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
                                                             {requirement}
                                                         </span>
                                                     </motion.div>
@@ -158,36 +158,40 @@ export default function MembershipsPage() {
                                 transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                                 viewport={{ once: true, amount: 0.1 }}
                             >
-                                <div className="space-y-8">
+                                <div className="space-y-6">
                                     {/* Header con imagen */}
-                                    <div className="space-y-6 text-center">
+                                    <div className="space-y-4 text-center">
                                         <motion.div
-                                            className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-600 shadow-xl"
+                                            className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-600 shadow-lg"
                                             whileHover={{ scale: 1.1, rotate: 5 }}
                                             transition={{ duration: 0.3 }}
                                         >
-                                            <Award className="h-10 w-10 text-white" />
+                                            <Award className="h-8 w-8 text-white" />
                                         </motion.div>
-                                        <div className="space-y-4">
-                                            <h2 className="text-3xl font-bold text-slate-800">BENEFICIOS DE SER MIEMBRO</h2>
-                                            <div className="mx-auto h-1 w-24 rounded-full bg-green-600"></div>
+                                        <div className="space-y-3">
+                                            <h2 className="text-2xl font-bold text-slate-800">BENEFICIOS DE SER MIEMBRO</h2>
+                                            <div className="mx-auto h-1 w-20 rounded-full bg-green-600"></div>
                                         </div>
                                     </div>
 
-                                    <div className="grid gap-6 md:grid-cols-2">
+                                    <div className="grid gap-4 md:grid-cols-2">
                                         {benefits.map((benefit, index) => (
                                             <motion.div
                                                 key={index}
-                                                className="group flex items-start space-x-4 rounded-2xl bg-white/80 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/90 hover:shadow-lg"
+                                                className="group flex items-start space-x-3 rounded-xl bg-white/80 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/90 hover:shadow-md"
                                                 initial={{ y: 30, opacity: 0 }}
                                                 whileInView={{ y: 0, opacity: 1 }}
                                                 transition={{ duration: 0.6, delay: 0.5 + index * 0.1, ease: 'easeOut' }}
                                                 viewport={{ once: true, amount: 0.1 }}
                                             >
-                                                <motion.div className="mt-1 flex-shrink-0" whileHover={{ scale: 1.2 }} transition={{ duration: 0.2 }}>
-                                                    <Check className="h-6 w-6 text-green-600" />
+                                                <motion.div
+                                                    className="mt-0.5 flex-shrink-0"
+                                                    whileHover={{ scale: 1.2 }}
+                                                    transition={{ duration: 0.2 }}
+                                                >
+                                                    <Check className="h-4 w-4 text-green-600" />
                                                 </motion.div>
-                                                <span className="text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
+                                                <span className="text-sm text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
                                                     {benefit}
                                                 </span>
                                             </motion.div>
@@ -199,43 +203,43 @@ export default function MembershipsPage() {
 
                         {/* Formulario Section - PDF más grande y como ventana */}
                         <motion.div
-                            className="space-y-12"
+                            className="space-y-8"
                             initial={{ y: 60, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
                             viewport={{ once: true, amount: 0.1 }}
                         >
                             <motion.div
-                                className="space-y-6 text-center"
+                                className="space-y-4 text-center"
                                 initial={{ y: 20, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
                                 transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
                                 viewport={{ once: true, amount: 0.1 }}
                             >
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     <motion.div
-                                        className="inline-flex items-center justify-center rounded-full border border-green-200/50 bg-green-100/80 px-6 py-2 backdrop-blur-sm"
+                                        className="inline-flex items-center justify-center rounded-full border border-green-200/50 bg-green-100/80 px-4 py-2 backdrop-blur-sm"
                                         initial={{ scale: 0.8, opacity: 0 }}
                                         whileInView={{ scale: 1, opacity: 1 }}
                                         transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
                                         viewport={{ once: true, amount: 0.1 }}
                                     >
-                                        <Download className="mr-2 h-4 w-4 text-green-600" />
-                                        <span className="text-sm font-medium text-green-700">Documento oficial</span>
+                                        <Download className="mr-2 h-3 w-3 text-green-600" />
+                                        <span className="text-xs font-medium text-green-700">Documento oficial</span>
                                     </motion.div>
 
-                                    <h2 className="text-3xl font-bold text-slate-800 md:text-4xl">FORMULARIO OFICIAL DE AFILIACIÓN</h2>
-                                    <div className="mx-auto h-0.5 w-24 rounded-full bg-gradient-to-r from-green-600 to-green-700"></div>
+                                    <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">FORMULARIO OFICIAL DE AFILIACIÓN</h2>
+                                    <div className="mx-auto h-0.5 w-20 rounded-full bg-gradient-to-r from-green-600 to-green-700"></div>
                                 </div>
 
-                                <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-600">
+                                <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600">
                                     Puedes revisar y descargar el formulario oficial que deberás llenar y entregar para completar tu proceso de
                                     afiliación.
                                 </p>
                             </motion.div>
 
                             <motion.div
-                                className="mx-auto max-w-6xl"
+                                className="mx-auto max-w-5xl"
                                 initial={{ y: 30, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
                                 transition={{ duration: 0.8, delay: 0.7, ease: 'easeOut' }}
@@ -243,34 +247,34 @@ export default function MembershipsPage() {
                             >
                                 {/* PDF Viewer como ventana */}
                                 <motion.div
-                                    className="relative overflow-hidden rounded-2xl border-2 border-gray-300 bg-gray-100"
+                                    className="relative overflow-hidden rounded-xl border border-gray-300 bg-gray-100"
                                     initial={{ scale: 0.95, opacity: 0 }}
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
                                     viewport={{ once: true, amount: 0.1 }}
                                 >
                                     {/* PDF Header */}
-                                    <div className="flex items-center justify-between border-b border-gray-300 bg-gray-200 p-4">
-                                        <div className="flex items-center space-x-4">
-                                            <div className="flex space-x-2">
-                                                <div className="h-3 w-3 rounded-full bg-red-500"></div>
-                                                <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-                                                <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                                    <div className="flex items-center justify-between border-b border-gray-300 bg-gray-200 p-3">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="flex space-x-1.5">
+                                                <div className="h-2.5 w-2.5 rounded-full bg-red-500"></div>
+                                                <div className="h-2.5 w-2.5 rounded-full bg-yellow-500"></div>
+                                                <div className="h-2.5 w-2.5 rounded-full bg-green-500"></div>
                                             </div>
-                                            <div className="flex items-center space-x-3">
-                                                <div className="h-6 w-6 rounded-full bg-green-500"></div>
-                                                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500">
-                                                    <div className="h-3 w-3 rounded-full bg-white"></div>
+                                            <div className="flex items-center space-x-2">
+                                                <div className="h-5 w-5 rounded-full bg-green-500"></div>
+                                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500">
+                                                    <div className="h-2.5 w-2.5 rounded-full bg-white"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="text-gray-600">
-                                            <span className="font-semibold">Solicitud de Afiliación</span>
+                                            <span className="text-sm font-semibold">Solicitud de Afiliación</span>
                                         </div>
                                     </div>
 
                                     {/* PDF Content - Más grande */}
-                                    <div className="h-[700px] bg-white">
+                                    <div className="h-[600px] bg-white">
                                         <iframe
                                             src="/assets/pdf/SolicitudAfiliacion.pdf"
                                             className="h-full w-full"
@@ -280,7 +284,7 @@ export default function MembershipsPage() {
                                 </motion.div>
 
                                 <motion.div
-                                    className="mt-8 flex justify-center"
+                                    className="mt-6 flex justify-center"
                                     initial={{ y: 20, opacity: 0 }}
                                     whileInView={{ y: 0, opacity: 1 }}
                                     transition={{ duration: 0.8, delay: 0.9, ease: 'easeOut' }}
@@ -289,9 +293,9 @@ export default function MembershipsPage() {
                                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                         <Button
                                             size="lg"
-                                            className="bg-gradient-to-r from-green-600 to-green-700 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:from-green-700 hover:to-green-800"
+                                            className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:from-green-700 hover:to-green-800"
                                         >
-                                            <Download className="mr-3 h-6 w-6" />
+                                            <Download className="mr-2 h-4 w-4" />
                                             Descargar PDF
                                         </Button>
                                     </motion.div>

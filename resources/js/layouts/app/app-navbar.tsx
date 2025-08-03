@@ -24,9 +24,6 @@ export default function AppNavbar() {
                         <a href="/#inicio" className="font-medium text-slate-300 transition-colors hover:text-white">
                             Inicio
                         </a>
-                        <a href="/#beneficios" className="font-medium text-slate-300 transition-colors hover:text-white">
-                            Beneficios
-                        </a>
                         <Link href={route('services')} className="font-medium text-slate-300 transition-colors hover:text-white">
                             Servicios
                         </Link>
@@ -52,9 +49,6 @@ export default function AppNavbar() {
                         <div className="flex flex-col space-y-4 p-4">
                             <a href="/#inicio" className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Inicio
-                            </a>
-                            <a href="/#beneficios" className="font-medium text-slate-300 transition-colors hover:text-white">
-                                Beneficios
                             </a>
                             <Link href={route('services')} className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Servicios

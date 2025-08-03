@@ -56,7 +56,7 @@ export default function HistorySection() {
                             whileHover={{ scale: 1.05 }}
                         >
                             <img
-                                src="https://picsum.photos/500/400.webp"
+                                src="/assets/img/cooperation.webp"
                                 alt="Historia de la Asociación"
                                 width={500}
                                 height={400}

@@ -59,7 +59,7 @@ export default function ServicesPage() {
 
     return (
         <AppLayout title="Servicios">
-            <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 py-20">
+            <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 py-16">
                 {/* Background decorative elements */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl"></div>
@@ -70,7 +70,7 @@ export default function ServicesPage() {
 
                 <div className="relative container mx-auto px-4 lg:px-6">
                     <motion.div
-                        className="space-y-24"
+                        className="space-y-16"
                         initial={{ y: 40, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -78,26 +78,26 @@ export default function ServicesPage() {
                     >
                         {/* Hero Section */}
                         <motion.div
-                            className="flex min-h-[50vh] flex-col justify-center space-y-16 text-center"
+                            className="flex min-h-[50vh] flex-col justify-center space-y-8 text-center"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
                             viewport={{ once: true, amount: 0.1 }}
                         >
-                            <div className="space-y-12">
+                            <div className="space-y-6">
                                 <motion.div
-                                    className="inline-flex items-center justify-center rounded-full border border-blue-200/50 bg-blue-100/80 px-8 py-3 backdrop-blur-sm"
+                                    className="inline-flex items-center justify-center rounded-full border border-blue-200/50 bg-blue-100/80 px-4 py-2 backdrop-blur-sm"
                                     initial={{ scale: 0.8, opacity: 0 }}
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
                                     viewport={{ once: true, amount: 0.1 }}
                                 >
-                                    <Star className="mr-3 h-5 w-5 text-blue-600" />
-                                    <span className="text-base font-medium text-blue-700">Servicios profesionales</span>
+                                    <Star className="mr-2 h-3 w-3 text-blue-600" />
+                                    <span className="text-xs font-medium text-blue-700">Servicios profesionales</span>
                                 </motion.div>
 
-                                <div className="space-y-8">
-                                    <h1 className="text-5xl font-bold text-slate-800 md:text-7xl lg:text-8xl">
+                                <div className="space-y-4">
+                                    <h1 className="text-3xl font-bold text-slate-800 md:text-4xl lg:text-5xl">
                                         <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
                                             NUESTROS
                                         </span>
@@ -106,15 +106,15 @@ export default function ServicesPage() {
                                     </h1>
 
                                     <motion.div
-                                        className="mx-auto h-2 w-40 rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800"
+                                        className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800"
                                         initial={{ scaleX: 0 }}
                                         whileInView={{ scaleX: 1 }}
-                                        transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+                                        transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                                         viewport={{ once: true, amount: 0.1 }}
                                     />
                                 </div>
 
-                                <p className="mx-auto max-w-4xl text-2xl leading-relaxed text-slate-600">
+                                <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
                                     Descubre todos los servicios que ofrecemos para nuestros miembros y cómo pueden beneficiarte en tu desarrollo
                                     profesional.
                                 </p>
@@ -123,7 +123,7 @@ export default function ServicesPage() {
 
                         {/* Services Grid - Diseño mejorado */}
                         <motion.div
-                            className="space-y-20"
+                            className="space-y-12"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.1 }}
@@ -145,60 +145,51 @@ export default function ServicesPage() {
                                         visible: { y: 0, opacity: 1 },
                                     }}
                                     transition={{ duration: 0.8, ease: 'easeOut' }}
-                                    className={`relative overflow-hidden rounded-3xl border-2 bg-white/95 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${getColorClasses(service.color).split(' ')[2]} ${getColorClasses(service.color).split(' ')[3]}`}
+                                    className={`relative overflow-hidden rounded-2xl border bg-white/95 backdrop-blur-sm transition-all duration-500 hover:scale-[1.01] hover:shadow-lg ${getColorClasses(service.color).split(' ')[2]} ${getColorClasses(service.color).split(' ')[3]}`}
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20"></div>
-                                    <div className="relative p-12">
-                                        <div className="grid items-center gap-12 lg:grid-cols-2">
+                                    <div className="relative p-6">
+                                        <div className="grid items-center gap-6 lg:grid-cols-2">
                                             {/* Contenido */}
-                                            <div className="space-y-8">
+                                            <div className="space-y-4">
                                                 <motion.div
-                                                    className={`inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br ${getColorClasses(service.color).split(' ')[0]} ${getColorClasses(service.color).split(' ')[1]} shadow-2xl`}
+                                                    className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${getColorClasses(service.color).split(' ')[0]} ${getColorClasses(service.color).split(' ')[1]} shadow-md`}
                                                     whileHover={{ scale: 1.1, rotate: -5 }}
                                                     transition={{ duration: 0.3 }}
                                                 >
-                                                    <service.icon className="h-10 w-10 text-white" />
+                                                    <service.icon className="h-6 w-6 text-white" />
                                                 </motion.div>
 
-                                                <div className="space-y-6">
-                                                    <h3 className="text-3xl font-bold text-slate-800">{service.title}</h3>
-                                                    <p className="text-xl leading-relaxed text-slate-600">{service.description}</p>
+                                                <div className="space-y-3">
+                                                    <h3 className="text-xl font-bold text-slate-800">{service.title}</h3>
+                                                    <p className="text-sm leading-relaxed text-slate-600">{service.description}</p>
                                                 </div>
-
-                                                {/* <motion.div
-                                                    className="flex cursor-pointer items-center space-x-2 font-semibold text-blue-600"
-                                                    whileHover={{ x: 5 }}
-                                                    transition={{ duration: 0.3 }}
-                                                >
-                                                    <span>Conocer más</span>
-                                                    <ArrowRight className="h-4 w-4" />
-                                                </motion.div> */}
                                             </div>
 
                                             {/* Requisitos */}
-                                            <div className="space-y-6">
-                                                <div className="flex items-center space-x-3">
-                                                    <div className="h-1 w-8 rounded-full bg-gradient-to-r from-green-500 to-green-600"></div>
-                                                    <h4 className="text-xl font-bold text-slate-800">Requisitos:</h4>
+                                            <div className="space-y-3">
+                                                <div className="flex items-center space-x-2">
+                                                    <div className="h-0.5 w-4 rounded-full bg-gradient-to-r from-green-500 to-green-600"></div>
+                                                    <h4 className="text-sm font-bold text-slate-800">Requisitos:</h4>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="space-y-2">
                                                     {service.requirements.map((requirement, reqIndex) => (
                                                         <motion.div
                                                             key={reqIndex}
-                                                            className="group flex items-start space-x-4 rounded-xl bg-white/60 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/80"
+                                                            className="group flex items-start space-x-2 rounded-md bg-white/60 p-2 backdrop-blur-sm transition-all duration-300 hover:bg-white/80"
                                                             initial={{ x: 30, opacity: 0 }}
                                                             whileInView={{ x: 0, opacity: 1 }}
                                                             transition={{ duration: 0.6, delay: reqIndex * 0.15, ease: 'easeOut' }}
                                                             viewport={{ once: true, amount: 0.1 }}
                                                         >
                                                             <motion.div
-                                                                className="mt-1 flex-shrink-0"
+                                                                className="mt-0.5 flex-shrink-0"
                                                                 whileHover={{ scale: 1.2 }}
                                                                 transition={{ duration: 0.2 }}
                                                             >
-                                                                <CheckCircle className="h-6 w-6 text-green-600" />
+                                                                <CheckCircle className="h-4 w-4 text-green-600" />
                                                             </motion.div>
-                                                            <span className="text-lg text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
+                                                            <span className="text-xs text-slate-700 transition-colors duration-200 group-hover:text-slate-800">
                                                                 {requirement}
                                                             </span>
                                                         </motion.div>
@@ -213,15 +204,15 @@ export default function ServicesPage() {
 
                         {/* Call to Action */}
                         <motion.div
-                            className="space-y-12 text-center"
+                            className="space-y-6 text-center"
                             initial={{ y: 40, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
                             viewport={{ once: true, amount: 0.1 }}
                         >
-                            <div className="space-y-8">
-                                <h2 className="text-4xl font-bold text-slate-800 md:text-5xl">¿Listo para unirte?</h2>
-                                <p className="mx-auto max-w-3xl text-xl text-slate-600">
+                            <div className="space-y-4">
+                                <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">¿Listo para unirte?</h2>
+                                <p className="mx-auto max-w-xl text-sm text-slate-600">
                                     Descubre todos los beneficios que tenemos para ti y comienza tu proceso de afiliación hoy mismo.
                                 </p>
                             </div>
@@ -236,10 +227,10 @@ export default function ServicesPage() {
                                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                     <a
                                         href={route('memberships')}
-                                        className="hover:shadow-3xl inline-flex items-center space-x-3 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-10 py-5 text-xl font-semibold text-white shadow-2xl transition-all duration-300 hover:from-blue-700 hover:to-blue-800"
+                                        className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
                                     >
                                         <span>Comenzar Afiliación</span>
-                                        <ArrowRight className="h-6 w-6" />
+                                        <ArrowRight className="h-4 w-4" />
                                     </a>
                                 </motion.div>
                             </motion.div>

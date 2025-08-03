@@ -2,11 +2,11 @@ import { motion } from 'motion/react';
 
 export default function GallerySection() {
     const galleryImages = [
-        'https://picsum.photos/200/300.webp',
-        'https://picsum.photos/200/300.webp',
-        'https://picsum.photos/200/300.webp',
-        'https://picsum.photos/200/300.webp',
-        'https://picsum.photos/200/300.webp',
+        '/assets/img/cooperation.webp',
+        '/assets/img/cooperation.webp',
+        '/assets/img/cooperation.webp',
+        '/assets/img/cooperation.webp',
+        '/assets/img/cooperation.webp',
     ];
 
     return (
