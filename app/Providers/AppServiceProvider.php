@@ -20,9 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') !== 'local') {
+        if (config('app.env') !== 'local' || (config('app.env') === 'local' && env('APP_RAILWAY', false))) {
             URL::forceScheme('https');
-
         }
     }
 }
