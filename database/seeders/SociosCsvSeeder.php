@@ -9,6 +9,34 @@ use Carbon\Carbon;
 
 class SociosCsvSeeder extends Seeder
 {
+    /**
+     * Reemplaza caracteres especiales por equivalentes ASCII
+     */
+    private function replaceSpecialChars($string)
+    {
+        if (empty($string))
+            return $string;
+
+        $replacements = [
+            'Ñ' => 'N',
+            'ñ' => 'n',
+            'Á' => 'A',
+            'á' => 'a',
+            'É' => 'E',
+            'é' => 'e',
+            'Í' => 'I',
+            'í' => 'i',
+            'Ó' => 'O',
+            'ó' => 'o',
+            'Ú' => 'U',
+            'ú' => 'u',
+            'Ü' => 'U',
+            'ü' => 'u',
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $string);
+    }
+
     public function run()
     {
         $this->command->info("→ Leyendo CSV de cupossocios…");
@@ -20,19 +48,20 @@ class SociosCsvSeeder extends Seeder
             $f = new \SplFileObject($cuposPath); // Abre el CSV
             $f->setFlags(
                 \SplFileObject::READ_CSV |
-                    \SplFileObject::SKIP_EMPTY |
-                    \SplFileObject::DROP_NEW_LINE
+                \SplFileObject::SKIP_EMPTY |
+                \SplFileObject::DROP_NEW_LINE
             );
             $f->setCsvControl(';', '"', '\\');
             $raw = $f->fgetcsv();
             $head = array_map(fn($h) => trim(mb_strtolower($h)), $raw);
-            while (! $f->eof()) {
+            while (!$f->eof()) {
                 $row = $f->fgetcsv();
-                if (! is_array($row) || count($row) !== count($head)) continue;
+                if (!is_array($row) || count($row) !== count($head))
+                    continue;
                 $r = array_combine($head, $row);
                 // saneamos cédula y cupo
                 $cedula = preg_replace('/\D/', '', $r['cedula'] ?? '');
-                $cupo   = isset($r['cupo']) ? floatval(str_replace(',', '.', $r['cupo'])) : 0;
+                $cupo = isset($r['cupo']) ? floatval(str_replace(',', '.', $r['cupo'])) : 0;
                 if ($cedula) {
                     $cupos[$cedula] = $cupo;
                 }
@@ -45,7 +74,7 @@ class SociosCsvSeeder extends Seeder
 
         // 2) Carga socios y les aplica cupo
         $path = database_path('data/socios_old.csv');
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             $this->command->error("No encontré el CSV de socios en: {$path}");
             return;
         }
@@ -53,8 +82,8 @@ class SociosCsvSeeder extends Seeder
         $file = new \SplFileObject($path);
         $file->setFlags(
             \SplFileObject::READ_CSV |
-                \SplFileObject::SKIP_EMPTY |
-                \SplFileObject::DROP_NEW_LINE
+            \SplFileObject::SKIP_EMPTY |
+            \SplFileObject::DROP_NEW_LINE
         );
         $file->setCsvControl(';', '"', '\\');
 
@@ -67,9 +96,9 @@ class SociosCsvSeeder extends Seeder
         }, $rawHdr);
 
         $count = 0;
-        while (! $file->eof()) {
+        while (!$file->eof()) {
             $row = $file->fgetcsv();
-            if (! is_array($row) || count($row) !== count($headers)) {
+            if (!is_array($row) || count($row) !== count($headers)) {
                 continue;
             }
             $data = array_combine($headers, $row);
@@ -88,22 +117,22 @@ class SociosCsvSeeder extends Seeder
             Socio::updateOrCreate(
                 ['cedula' => $cedula],
                 [
-                    'apellidos_nombres'            => trim($data['apellidos_nombres'] ?? ''),
-                    'campus'             => $data['campus'] ?? null,
-                    'genero'             => $data['genero'] ?? null,
-                    'regimen'            => $data['regimen'] ?? null,
-                    'celular'            => $data['celular'] ?? null,
-                    'cargo'              => $data['cargo'] ?? null,
-                    'direccion'          => $data['direccion'] ?? null,
-                    'fecha_afiliacion'   => (!empty($data['fecha_afiliacion']))
+                    'apellidos_nombres' => $this->replaceSpecialChars(trim($data['apellidos_nombres'] ?? '')),
+                    'campus' => $this->replaceSpecialChars($data['campus'] ?? null),
+                    'genero' => $data['genero'] ?? null,
+                    'regimen' => $this->replaceSpecialChars($data['regimen'] ?? null),
+                    'celular' => $data['celular'] ?? null,
+                    'cargo' => $this->replaceSpecialChars($data['cargo'] ?? null),
+                    'direccion' => $this->replaceSpecialChars($data['direccion'] ?? null),
+                    'fecha_afiliacion' => (!empty($data['fecha_afiliacion']))
                         ? Carbon::parse($data['fecha_afiliacion'])
                         : now(),
                     'documento_pdf_path' => $data['documento_pdf'] ?? null,
-                    'observaciones'      => $data['observaciones'] ?? null,
-                    'correo'             => $correo,
-                    'tipo_usuario'       => $data['tipo_usuario'] ?? 'adherente',
+                    'observaciones' => $this->replaceSpecialChars($data['observaciones'] ?? null),
+                    'correo' => $correo,
+                    'tipo_usuario' => $data['tipo_usuario'] ?? 'adherente',
                     // aquí asignamos el cupo si existe en el mapa
-                    'cupo'               => $cupos[$cedula] ?? 0,
+                    'cupo' => $cupos[$cedula] ?? 0,
                 ]
             );
 
