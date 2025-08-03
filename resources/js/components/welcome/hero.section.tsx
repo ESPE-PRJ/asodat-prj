@@ -59,7 +59,7 @@ export default function HeroSection() {
                     >
                         <motion.div className="relative" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
                             <img
-                                src="https://picsum.photos/700/400.webp"
+                                src="/assets/img/cooperation.webp"
                                 alt="Asociación Profesional"
                                 width={700}
                                 height={400}
