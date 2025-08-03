@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UsuariosCsvSeeder::class,
             AportesCsvSeeder::class,
             ComprobanteCsvSeeder::class,
+            NoticiasSeeder::class,
         ]);
 
         $this->command->info("→ Importación de datos completada.");
