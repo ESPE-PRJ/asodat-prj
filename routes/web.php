@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 Route::get('/servicios', [ServicesController::class, 'services'])->name('services');
 Route::get('/noticias', [NewsController::class, 'news'])->name('news');
-Route::get('/membresias', [MembershipsController::class, 'memberships'])->name('memberships');
+Route::get('/afiliacion', [MembershipsController::class, 'memberships'])->name('memberships');
 
 // require __DIR__.'/settings.php';
 // require __DIR__.'/auth.php';
