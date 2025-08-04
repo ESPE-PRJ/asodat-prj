@@ -20,8 +20,22 @@ class Aporte extends Model implements AuditableContract
 
     protected $casts = [
         'periodo' => 'date',
-        'monto'   => 'decimal:2',
+        'monto' => 'decimal:2',
     ];
+
+    // Estados disponibles
+    const ESTADO_PENDIENTE = 'pendiente';
+    const ESTADO_PAGADO = 'pagado';
+    const ESTADO_VENCIDO = 'vencido';
+
+    public static function getEstados()
+    {
+        return [
+            self::ESTADO_PENDIENTE => 'Pendiente',
+            self::ESTADO_PAGADO => 'Pagado',
+            self::ESTADO_VENCIDO => 'Vencido',
+        ];
+    }
 
     public function socio()
     {
@@ -36,5 +50,42 @@ class Aporte extends Model implements AuditableContract
     public function detalles()
     {
         return $this->hasMany(ComprobanteDetalle::class, 'aporte_id');
+    }
+
+    // Métodos de acceso para Filament
+    public function getSocioNombreAttribute()
+    {
+        return $this->socio ? $this->socio->apellidos_nombres : 'N/A';
+    }
+
+    public function getTipoAporteNombreAttribute()
+    {
+        return $this->tipoAporte ? $this->tipoAporte->nombre : 'N/A';
+    }
+
+    public function getEstadoFormateadoAttribute()
+    {
+        return self::getEstados()[$this->estado] ?? $this->estado;
+    }
+
+    // Scopes para filtros
+    public function scopePendientes($query)
+    {
+        return $query->where('estado', self::ESTADO_PENDIENTE);
+    }
+
+    public function scopePagados($query)
+    {
+        return $query->where('estado', self::ESTADO_PAGADO);
+    }
+
+    public function scopeVencidos($query)
+    {
+        return $query->where('estado', self::ESTADO_VENCIDO);
+    }
+
+    public function scopePorPeriodo($query, $desde, $hasta)
+    {
+        return $query->whereBetween('periodo', [$desde, $hasta]);
     }
 }
