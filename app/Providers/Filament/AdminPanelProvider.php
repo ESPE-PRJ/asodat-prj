@@ -65,16 +65,21 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                BreezyCore::make()->myProfile(
-                    shouldRegisterUserMenu: true,
-                    userMenuLabel: 'Cuenta',
-                    shouldRegisterNavigation: false,
-                    navigationGroup: 'Settings',
-                    hasAvatars: false,
-                    slug: 'profile'
-                )->passwordUpdateRules(
+                BreezyCore::make()
+                    ->myProfile(
+                        shouldRegisterUserMenu: true,
+                        userMenuLabel: 'Cuenta',
+                        shouldRegisterNavigation: false,
+                        navigationGroup: 'Settings',
+                        hasAvatars: false,
+                        slug: 'profile'
+                    )
+                    ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)],
                         requiresCurrentPassword: true,
+                    )
+                    ->enableTwoFactorAuthentication(
+                        force: false,
                     )
             ]);
     }
