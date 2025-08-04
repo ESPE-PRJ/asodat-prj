@@ -16,7 +16,7 @@ return [
     'team_model' => \App\Models\Team::class,
 
     'scope_to_tenant' => true,
-    
+
     'scope_roles_to_tenant' => true,
     'scope_premissions_to_tenant' => false,
 
@@ -26,8 +26,8 @@ return [
      * Set as false to remove from navigation.
      */
     'should_register_on_navigation' => [
-        'permissions' => true,
-        'roles' => true,
+        'permissions' => false,
+        'roles' => false,
     ],
 
     'should_show_permissions_for_roles' => true,
