@@ -30,6 +30,20 @@ class AporteResource extends Resource
         return $user && $user->hasRole('socio') && $user->socio;
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $user = Auth::user();
+        $socio = $user->socio;
+
+        if (!$socio) {
+            return Aporte::query()->where('id', 0); // Query que no retorna resultados
+        }
+
+        return Aporte::query()
+            ->where('socio_id', $socio->id)
+            ->with(['tipoAporte']);
+    }
+
     public static function form(Form $form): Form
     {
         $user = Auth::user();
@@ -78,28 +92,7 @@ class AporteResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $user = Auth::user();
-        $socio = $user->socio;
-
-        // Si no hay socio asociado, retornar una tabla vacía
-        if (!$socio) {
-            return $table
-                ->query(Aporte::query()->where('id', 0)) // Query que no retorna resultados
-                ->columns([
-                    Tables\Columns\TextColumn::make('id')
-                        ->label('No hay datos disponibles')
-                        ->formatStateUsing(fn() => 'No tienes un perfil de socio asociado. Contacta al administrador.'),
-                ])
-                ->actions([])
-                ->bulkActions([]);
-        }
-
         return $table
-            ->query(
-                Aporte::query()
-                    ->where('socio_id', $socio->id)
-                    ->with(['tipoAporte'])
-            )
             ->columns([
                 Tables\Columns\TextColumn::make('tipoAporte.nombre')
                     ->label('Tipo de Aporte')

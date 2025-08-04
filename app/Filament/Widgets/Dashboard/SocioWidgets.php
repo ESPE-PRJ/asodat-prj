@@ -32,7 +32,7 @@ class SocioWidgets extends StatsOverviewWidget
         // Fecha de vencimiento de afiliación
         $fechaAfiliacion = Carbon::parse($socio->fecha_afiliacion);
         $fechaVencimiento = $fechaAfiliacion->addYear();
-        $diasRestantes = now()->diffInDays($fechaVencimiento, false);
+        $diasRestantes = (int) now()->diffInDays($fechaVencimiento, false);
 
         // Monto total aportado
         $montoTotal = Aporte::where('socio_id', $socio->id)->sum('monto');

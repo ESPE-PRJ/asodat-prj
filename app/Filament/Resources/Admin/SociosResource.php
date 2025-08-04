@@ -111,7 +111,8 @@ class SociosResource extends Resource
                         Forms\Components\TextInput::make('cupo')
                             ->label('Cupo')
                             ->numeric()
-                            ->maxLength(50),
+                            ->minValue(0)
+                            ->helperText('Campo opcional'),
 
                         Forms\Components\Select::make('tipo_usuario')
                             ->label('Tipo de Usuario')
@@ -324,9 +325,6 @@ class SociosResource extends Resource
                     ->label('Fecha de Afiliación')
                     ->date('d/m/Y')
                     ->sortable(),
-
-                Tables\Columns\BadgeColumn::make('estado')
-                    ->label('Estado'),
 
                 Tables\Columns\TextColumn::make('user.roles')
                     ->label('Roles')
