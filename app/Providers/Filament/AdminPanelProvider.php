@@ -79,9 +79,9 @@ class AdminPanelProvider extends PanelProvider
                         requiresCurrentPassword: true,
                     )
                     ->enableTwoFactorAuthentication(
-                        force: false,
+                        force: env('APP_2FA_REQUIRED', false),
                     )
-                    ->enableBrowserSessions(condition: true)
+                    ->enableBrowserSessions(condition: env('APP_SESSIONS_VIEW', false))
             ]);
     }
 }
