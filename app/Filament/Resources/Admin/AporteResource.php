@@ -206,9 +206,4 @@ class AporteResource extends Resource
         return parent::getEloquentQuery()
             ->with(['socio', 'tipoAporte']);
     }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 }

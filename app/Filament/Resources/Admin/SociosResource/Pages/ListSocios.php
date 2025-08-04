@@ -13,7 +13,15 @@ class ListSocios extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nuevo Socio'),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            // Puedes agregar widgets aquí si es necesario
         ];
     }
 }
