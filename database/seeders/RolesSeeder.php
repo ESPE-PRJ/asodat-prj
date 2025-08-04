@@ -11,6 +11,7 @@ class RolesSeeder extends Seeder
     {
         // Crear roles básicos
         $roles = [
+            'super_admin',
             'presidente',
             'socio'
         ];

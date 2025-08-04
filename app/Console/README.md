@@ -1,169 +1,210 @@
-# Comandos de Consola - Gestión de Roles y Permisos
+# Comandos de Gestión de Roles y Permisos
 
-## 📋 **Comandos Disponibles**
+Este documento describe todos los comandos Artisan personalizados para la gestión de roles y permisos en el sistema.
 
-### **1. Gestión de Roles**
+## 📋 Comandos Disponibles
 
-#### **Crear Roles Básicos**
-```bash
-php artisan db:seed --class=RolesSeeder
-```
-- Crea los roles: `super_admin`, `presidente`, `socio`
-- No duplica roles existentes
-- Seguro de ejecutar múltiples veces
+### 1. `roles:asignar` - Asignar un rol
+**Descripción**: Asigna un rol específico a un usuario por email.
 
-#### **Asignar Rol a Usuario Específico**
+**Sintaxis**:
 ```bash
 php artisan roles:asignar {email} {rol}
 ```
-**Ejemplos:**
+
+**Ejemplos**:
 ```bash
-php artisan roles:asignar admin@example.com presidente
-php artisan roles:asignar socio@example.com socio
-php artisan roles:asignar super@example.com super_admin
+# Asignar rol 'socio' a un usuario
+php artisan roles:asignar usuario@ejemplo.com socio
+
+# Asignar rol 'presidente' a un usuario
+php artisan roles:asignar admin@ejemplo.com presidente
+
+# Asignar rol 'super_admin' a un usuario
+php artisan roles:asignar admin@ejemplo.com super_admin
 ```
 
-#### **Asignar Socio por Defecto**
+**Características**:
+- ✅ Verifica que el usuario existe
+- ✅ Verifica que el rol existe
+- ✅ Muestra roles actuales del usuario
+- ✅ Permite asignar múltiples roles (acumulativo)
+
+### 2. `roles:asignar-multiples` - Asignar múltiples roles
+**Descripción**: Asigna múltiples roles a un usuario por email.
+
+**Sintaxis**:
 ```bash
-# Solo usuarios sin roles
+php artisan roles:asignar-multiples {email} {roles...} [--replace]
+```
+
+**Ejemplos**:
+```bash
+# Asignar múltiples roles (agregar)
+php artisan roles:asignar-multiples usuario@ejemplo.com socio presidente
+
+# Reemplazar roles existentes
+php artisan roles:asignar-multiples usuario@ejemplo.com socio presidente --replace
+
+# Asignar solo un rol
+php artisan roles:asignar-multiples usuario@ejemplo.com super_admin
+```
+
+**Opciones**:
+- `--replace`: Reemplaza roles existentes en lugar de agregar
+
+**Características**:
+- ✅ Verifica que todos los roles existen
+- ✅ Muestra roles actuales antes y después
+- ✅ Opción para reemplazar o agregar roles
+- ✅ Validación completa de roles
+
+### 3. `roles:socio-por-defecto` - Asignar rol socio por defecto
+**Descripción**: Asigna el rol 'socio' a usuarios que no tienen ningún rol asignado.
+
+**Sintaxis**:
+```bash
+php artisan roles:socio-por-defecto [--force]
+```
+
+**Ejemplos**:
+```bash
+# Asignar rol socio solo a usuarios sin roles
 php artisan roles:socio-por-defecto
 
-# Forzar a todos los usuarios
+# Asignar rol socio a todos los usuarios (forzar)
 php artisan roles:socio-por-defecto --force
 ```
 
-### **2. Consultas y Listados**
+**Opciones**:
+- `--force`: Asigna el rol a todos los usuarios, incluso si ya tienen roles
 
-#### **Listar Todos los Usuarios con Roles**
+### 4. `roles:listar-usuarios` - Listar usuarios y roles
+**Descripción**: Muestra una tabla con todos los usuarios y sus roles asignados.
+
+**Sintaxis**:
 ```bash
-php artisan roles:listar-usuarios
+php artisan roles:listar-usuarios [--rol={rol}]
 ```
 
-#### **Filtrar Usuarios por Rol**
+**Ejemplos**:
 ```bash
+# Listar todos los usuarios
+php artisan roles:listar-usuarios
+
+# Filtrar por rol específico
 php artisan roles:listar-usuarios --rol=socio
 php artisan roles:listar-usuarios --rol=presidente
 php artisan roles:listar-usuarios --rol=super_admin
 ```
 
-### **3. Consultas Rápidas con Tinker**
+**Opciones**:
+- `--rol`: Filtrar usuarios por rol específico
 
-#### **Ver Usuarios por Rol**
+## 🔄 Flujo de Trabajo Recomendado
+
+### Para un nuevo usuario:
+1. **Crear el usuario** (registro normal)
+2. **Asignar rol por defecto**:
+   ```bash
+   php artisan roles:socio-por-defecto
+   ```
+3. **Verificar asignación**:
+   ```bash
+   php artisan roles:listar-usuarios
+   ```
+
+### Para cambiar roles de un usuario:
+1. **Ver roles actuales**:
+   ```bash
+   php artisan roles:listar-usuarios
+   ```
+2. **Asignar nuevos roles**:
+   ```bash
+   # Agregar roles (mantener existentes)
+   php artisan roles:asignar-multiples usuario@ejemplo.com presidente socio
+   
+   # Reemplazar roles
+   php artisan roles:asignar-multiples usuario@ejemplo.com super_admin --replace
+   ```
+
+### Para asignar múltiples roles:
 ```bash
-php artisan tinker --execute="echo 'Usuarios con rol socio: ' . App\Models\User::role('socio')->pluck('name')->implode(', ');"
+# Usuario con roles de socio y presidente
+php artisan roles:asignar-multiples usuario@ejemplo.com socio presidente
+
+# Super admin con todos los roles
+php artisan roles:asignar-multiples admin@ejemplo.com super_admin presidente socio
 ```
 
-#### **Ver Estadísticas**
-```bash
-php artisan tinker --execute="echo 'Total usuarios: ' . App\Models\User::count() . ', Sin rol: ' . App\Models\User::whereDoesntHave('roles')->count();"
-```
+## ⚠️ Notas Importantes
 
-#### **Ver Todos los Usuarios con Roles**
-```bash
-php artisan tinker --execute="App\Models\User::with('roles')->get()->each(function(\$u) { echo \$u->name . ' - ' . \$u->getRoleNames()->implode(', ') . PHP_EOL; });"
-```
+### Roles Disponibles:
+- `super_admin`: Acceso completo al sistema
+- `presidente`: Gestión de aportes y socios
+- `socio`: Acceso básico a información personal
 
-## 🎯 **Flujo de Trabajo Recomendado**
+### Comportamiento de Asignación:
+- **`assignRole()`**: Agrega roles sin eliminar los existentes
+- **`syncRoles()`**: Reemplaza todos los roles existentes
+- **`assignRole()` múltiple**: Agrega múltiples roles a la vez
 
-### **1. Configuración Inicial**
-```bash
-# Crear roles básicos
-php artisan db:seed --class=RolesSeeder
+### Validaciones:
+- ✅ Verifica que el usuario existe
+- ✅ Verifica que los roles existen
+- ✅ Muestra roles actuales antes y después
+- ✅ Manejo de errores con mensajes claros
 
-# Asignar roles específicos
-php artisan roles:asignar admin@example.com presidente
-php artisan roles:asignar super@example.com super_admin
+## 🔧 Comandos de Mantenimiento
 
-# Asignar socio por defecto a usuarios restantes
-php artisan roles:socio-por-defecto
-```
-
-### **2. Verificación**
-```bash
-# Ver estado actual
-php artisan roles:listar-usuarios
-
-# Ver estadísticas
-php artisan tinker --execute="echo 'Usuarios por rol: ' . App\Models\User::with('roles')->get()->groupBy('roles.0.name')->map->count();"
-```
-
-### **3. Mantenimiento**
-```bash
-# Asignar rol a nuevo usuario
-php artisan roles:asignar nuevo@example.com socio
-
-# Verificar usuarios sin roles
-php artisan roles:listar-usuarios
-```
-
-## 🔧 **Estructura de Roles**
-
-### **Super Admin**
-- ✅ Acceso completo a todo
-- ✅ Gestión de roles y permisos
-- ✅ Panel de Shield completo
-
-### **Presidente**
-- ✅ CRUD completo de aportes
-- ✅ Gestión de socios
-- ✅ Reportes y dashboard
-- ❌ Gestión de roles
-
-### **Socio**
-- ✅ Ver sus aportes
-- ✅ Ver lista básica de socios
-- ✅ Dashboard limitado
-- ❌ Crear/editar/eliminar
-
-## 📊 **Comandos de Diagnóstico**
-
-### **Verificar Estado de la Base de Datos**
-```bash
-# Ver roles disponibles
-php artisan tinker --execute="echo 'Roles: ' . Spatie\Permission\Models\Role::pluck('name')->implode(', ');"
-
-# Ver usuarios sin roles
-php artisan tinker --execute="echo 'Sin rol: ' . App\Models\User::whereDoesntHave('roles')->count();"
-
-# Ver estadísticas por rol
-php artisan tinker --execute="echo 'Por rol: ' . App\Models\User::with('roles')->get()->groupBy('roles.0.name')->map->count();"
-```
-
-### **Limpiar Cache (si hay problemas)**
+### Limpiar caché después de cambios:
 ```bash
 php artisan config:clear
 php artisan cache:clear
-php artisan view:clear
 ```
 
-## 🚨 **Comandos de Emergencia**
-
-### **Resetear Roles de Usuario**
+### Verificar estado del sistema:
 ```bash
-# Remover todos los roles de un usuario
-php artisan tinker --execute="App\Models\User::where('email', 'usuario@example.com')->first()->syncRoles([]);"
+# Listar todos los usuarios y roles
+php artisan roles:listar-usuarios
 
-# Asignar solo rol socio
-php artisan tinker --execute="App\Models\User::where('email', 'usuario@example.com')->first()->syncRoles(['socio']);"
+# Verificar usuarios sin roles
+php artisan roles:listar-usuarios | grep "Sin roles"
 ```
 
-### **Verificar Integridad**
+## 🚨 Solución de Problemas
+
+### Error: "Usuario no encontrado"
+- Verificar que el email existe en la base de datos
+- Usar `php artisan tinker` para verificar usuarios
+
+### Error: "Rol no encontrado"
+- Verificar que el rol existe: `php artisan tinker` → `Role::all()`
+- Crear roles si es necesario: `php artisan db:seed --class=RolesSeeder`
+
+### Roles no se muestran en el dashboard
+- Limpiar caché: `php artisan config:clear && php artisan cache:clear`
+- Verificar que el usuario tiene roles asignados
+- Revisar logs: `tail -f storage/logs/laravel.log`
+
+## 📊 Ejemplos de Uso Completo
+
+### Configurar un super admin:
 ```bash
-# Verificar que todos los usuarios tengan al menos un rol
-php artisan tinker --execute="echo 'Usuarios sin rol: ' . App\Models\User::whereDoesntHave('roles')->pluck('email')->implode(', ');"
+php artisan roles:asignar-multiples admin@ejemplo.com super_admin presidente socio --replace
 ```
 
-## 📝 **Notas Importantes**
+### Configurar un presidente:
+```bash
+php artisan roles:asignar-multiples presidente@ejemplo.com presidente socio --replace
+```
 
-- **Los comandos son seguros** de ejecutar múltiples veces
-- **`firstOrCreate()`** evita duplicados en roles
-- **`syncRoles()`** reemplaza todos los roles existentes
-- **`assignRole()`** agrega roles sin eliminar los existentes
-- **El panel web** (`/admin/shield/users`) es más visual para gestión manual
+### Configurar un socio:
+```bash
+php artisan roles:asignar-multiples socio@ejemplo.com socio --replace
+```
 
-## 🔗 **Enlaces Útiles**
-
-- **Panel de Shield**: `/admin/shield/users`
-- **Panel de Roles**: `/admin/shield/roles`
-- **Documentación Spatie**: https://spatie.be/docs/laravel-permission
-- **Documentación Shield**: https://github.com/bezhanSalleh/filament-shield 
+### Asignar rol socio a todos los usuarios nuevos:
+```bash
+php artisan roles:socio-por-defecto
+``` 
