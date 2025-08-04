@@ -22,6 +22,8 @@ use App\Filament\Pages\Index;
 use App\Filament\Pages\Dashboard\Admin;
 use App\Filament\Pages\Dashboard\Presidente;
 use App\Filament\Pages\Dashboard\Socio;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Illuminate\Validation\Rules\Password;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -63,6 +65,17 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                BreezyCore::make()->myProfile(
+                    shouldRegisterUserMenu: true,
+                    userMenuLabel: 'Cuenta',
+                    shouldRegisterNavigation: false,
+                    navigationGroup: 'Settings',
+                    hasAvatars: false,
+                    slug: 'profile'
+                )->passwordUpdateRules(
+                        rules: [Password::default()->mixedCase()->uncompromised(3)],
+                        requiresCurrentPassword: true,
+                    )
             ]);
     }
 }
