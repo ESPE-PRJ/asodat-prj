@@ -41,15 +41,22 @@ class SociosResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Información Personal')
                     ->schema([
+
+                        Forms\Components\TextInput::make('apellidos')
+                            ->label('Apellidos')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('nombres')
+                            ->label('Nombres')
+                            ->required()
+                            ->maxLength(255),
+
                         Forms\Components\TextInput::make('cedula')
                             ->label('Cédula')
                             ->required()
-                            ->maxLength(20),
-
-                        Forms\Components\TextInput::make('apellidos_nombres')
-                            ->label('Apellidos y Nombres')
-                            ->required()
-                            ->maxLength(255),
+                            ->maxLength(20)
+                            ->unique(ignoreRecord: true),
 
                         Forms\Components\TextInput::make('correo')
                             ->label('Correo Electrónico')
@@ -61,14 +68,14 @@ class SociosResource extends Resource
                         Forms\Components\TextInput::make('celular')
                             ->label('Celular')
                             ->tel()
-                            ->maxLength(20),
+                            ->maxLength(20)->helperText('Campo opcional'),
 
                         Forms\Components\Select::make('genero')
                             ->label('Género')
                             ->options([
                                 'M' => 'Masculino',
                                 'F' => 'Femenino',
-                            ]),
+                            ])->required(),
                     ])
                     ->columns(2),
 
@@ -81,19 +88,12 @@ class SociosResource extends Resource
                             ->native(false)
                             ->default(now()),
 
-                        Forms\Components\Select::make('estado')
-                            ->label('Estado')
-                            ->options([
-                                'activo' => 'Activo',
-                                'inactivo' => 'Inactivo',
-                                'suspendido' => 'Suspendido',
-                            ])
-                            ->required()
-                            ->default('activo'),
-
-                        Forms\Components\TextInput::make('campus')
+                        Forms\Components\Select::make('campus')
                             ->label('Campus')
-                            ->maxLength(100),
+                            ->options([
+                                'Belisario Quevedo' => 'Belisario Quevedo',
+                                'Latacunga Centro' => 'Latacunga Centro',
+                            ])->required(),
 
                         Forms\Components\Select::make('regimen')
                             ->label('Régimen')
@@ -102,20 +102,24 @@ class SociosResource extends Resource
                                 'posgrado' => 'Posgrado',
                                 'administrativo' => 'Administrativo',
                                 'docente' => 'Docente',
-                            ]),
+                            ])->required(),
 
                         Forms\Components\TextInput::make('cargo')
                             ->label('Cargo')
-                            ->maxLength(100),
+                            ->maxLength(100)->required(),
 
                         Forms\Components\TextInput::make('cupo')
                             ->label('Cupo')
                             ->numeric()
                             ->maxLength(50),
 
-                        Forms\Components\TextInput::make('tipo_usuario')
+                        Forms\Components\Select::make('tipo_usuario')
                             ->label('Tipo de Usuario')
-                            ->maxLength(100),
+                            ->options([
+                                'adherente' => 'Adherente',
+                                'fundador' => 'Fundador',
+                            ])
+                            ->required(),
                     ])
                     ->columns(2),
 
@@ -149,18 +153,21 @@ class SociosResource extends Resource
                         Forms\Components\Textarea::make('direccion')
                             ->label('Dirección')
                             ->maxLength(500)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->required(),
 
                         Forms\Components\Textarea::make('observaciones')
                             ->label('Observaciones')
                             ->maxLength(1000)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->helperText('Campo opcional'),
 
                         Forms\Components\FileUpload::make('documento_pdf_path')
                             ->label('Documento PDF')
                             ->acceptedFileTypes(['application/pdf'])
                             ->directory('documentos-socios')
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->helperText('Campo opcional (solo archivos PDF)'),
                     ])
                     ->collapsible(),
             ]);
@@ -211,11 +218,6 @@ class SociosResource extends Resource
                             ->date('d/m/Y')
                             ->formatStateUsing(fn($state) => !empty($state) ? Carbon::parse($state)->format('d/m/Y') : 'sin datos'),
 
-                        Infolists\Components\TextEntry::make('estado')
-                            ->label('Estado')
-                            ->weight('bold')
-                            ->badge(),
-
                         Infolists\Components\TextEntry::make('campus')
                             ->label('Campus')
                             ->weight('bold')
@@ -259,7 +261,7 @@ class SociosResource extends Resource
                             ->weight('bold')
                             ->formatStateUsing(function ($record) {
                                 // Acceder directamente al usuario asociado al socio
-                                $user = $record->user;
+                                $user = User::where('socio_id', $record->id)->first();
                                 if (!$user) {
                                     return 'sin datos';
                                 }
@@ -330,7 +332,7 @@ class SociosResource extends Resource
                     ->label('Roles')
                     ->formatStateUsing(function ($record) {
                         // Acceder directamente al usuario asociado al socio
-                        $user = $record->user;
+                        $user = User::where('socio_id', $record->id)->first();
                         if (!$user) {
                             return 'sin datos';
                         }

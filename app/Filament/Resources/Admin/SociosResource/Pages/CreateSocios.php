@@ -26,32 +26,54 @@ class CreateSocios extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // Extraer datos del usuario
+        // Concatenar apellidos y nombres
+        $apellidos = $data['apellidos'] ?? '';
+        $nombres = $data['nombres'] ?? '';
+        $data['apellidos_nombres'] = trim($apellidos . ' ' . $nombres);
+
+        // Remover campos que no van a la tabla socio
+        unset($data['password'], $data['password_confirmation'], $data['roles'], $data['apellidos'], $data['nombres']);
+
+        return $data;
+    }
+
+    protected function handleRecordCreation(array $data): Socio
+    {
+        // Verificar si ya existe un socio con esa cédula
+        if (Socio::where('cedula', $data['cedula'])->exists()) {
+            throw new \Exception('Ya existe un socio con la cédula: ' . $data['cedula']);
+        }
+
+        // Verificar si ya existe un usuario con ese email
+        if (User::where('email', $data['correo'])->exists()) {
+            throw new \Exception('Ya existe un usuario con el email: ' . $data['correo']);
+        }
+
+        // Extraer datos del usuario del formulario original
+        $formData = $this->form->getState();
         $userData = [
             'name' => $data['apellidos_nombres'],
             'email' => $data['correo'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($formData['password']),
         ];
 
-        $roles = $data['roles'] ?? ['socio'];
-        unset($data['password'], $data['password_confirmation'], $data['roles']);
+        $roles = $formData['roles'] ?? ['socio'];
 
-        // Usar transacción para crear usuario y socio
+        // Usar transacción para crear socio y usuario
         DB::beginTransaction();
 
         try {
-            // Crear usuario
+            // 1. Crear socio primero
+            $socio = Socio::create($data);
+
+            // 2. Crear usuario con socio_id
+            $userData['socio_id'] = $socio->id;
             $user = User::create($userData);
             $user->assignRole($roles);
 
-            // Crear socio
-            $data['user_id'] = $user->id;
-            $socio = Socio::create($data);
-
             DB::commit();
 
-            // Retornar solo los datos del socio para el registro
-            return $data;
+            return $socio;
 
         } catch (\Exception $e) {
             DB::rollBack();
