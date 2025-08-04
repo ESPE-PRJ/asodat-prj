@@ -18,7 +18,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-use App\Filament\Pages\Dashboard;
+use App\Filament\Pages\Index;
+use App\Filament\Pages\Dashboard\Admin;
+use App\Filament\Pages\Dashboard\Presidente;
+use App\Filament\Pages\Dashboard\Socio;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -35,7 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             // ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Dashboard::class,
+                Index::class,
+                Admin::class,
+                Presidente::class,
+                Socio::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
