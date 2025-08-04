@@ -38,6 +38,12 @@ class AporteResource extends Resource
 
     protected static ?string $navigationGroup = 'Administración';
 
+    public static function canAccess(): bool
+    {
+        $user = auth()->user();
+        return $user && $user->hasAnyRole(['super_admin', 'presidente']);
+    }
+
     public static function form(Form $form): Form
     {
         return $form

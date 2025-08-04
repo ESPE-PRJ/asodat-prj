@@ -33,12 +33,20 @@ class AporteResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $user = Auth::user();
+
+        // Verificar que el usuario sea socio
+        if (!$user || !$user->hasRole('socio')) {
+            return Aporte::query()->where('id', 0); // Query que no retorna resultados
+        }
+
         $socio = $user->socio;
 
+        // Si no hay socio asociado, retornar query vacía
         if (!$socio) {
             return Aporte::query()->where('id', 0); // Query que no retorna resultados
         }
 
+        // Solo mostrar aportes del socio logueado
         return Aporte::query()
             ->where('socio_id', $socio->id)
             ->with(['tipoAporte']);
