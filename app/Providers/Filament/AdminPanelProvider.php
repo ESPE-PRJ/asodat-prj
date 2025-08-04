@@ -81,6 +81,7 @@ class AdminPanelProvider extends PanelProvider
                     ->enableTwoFactorAuthentication(
                         force: false,
                     )
+                    ->enableBrowserSessions(condition: true)
             ]);
     }
 }
