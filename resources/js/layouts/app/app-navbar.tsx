@@ -33,7 +33,7 @@ export default function AppNavbar() {
                         <Link href={route('news')} className="font-medium text-slate-300 transition-colors hover:text-white">
                             Noticias
                         </Link>
-                        <a href="/admin">
+                        <a href="/sys">
                             <Button>{auth.user ? 'Dashboard' : 'Iniciar sesión'}</Button>
                         </a>
                     </div>
@@ -59,7 +59,7 @@ export default function AppNavbar() {
                             <Link href={route('news')} className="font-medium text-slate-300 transition-colors hover:text-white">
                                 Noticias
                             </Link>
-                            <a href="/admin">
+                            <a href="/sys">
                                 <Button>{auth.user ? 'Dashboard' : 'Iniciar sesión'}</Button>
                             </a>
                         </div>

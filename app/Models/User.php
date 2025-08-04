@@ -9,11 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Audit;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Spatie\Permission\Traits\HasRoles;
+use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
 class User extends Authenticatable implements AuditableContract
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, Auditable;
+    use HasFactory, Notifiable, Auditable, HasRoles, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +55,7 @@ class User extends Authenticatable implements AuditableContract
     {
         return [
             'email_verified_at' => 'datetime',
+            'ultimo_login' => 'datetime',
             'password' => 'hashed',
         ];
     }
