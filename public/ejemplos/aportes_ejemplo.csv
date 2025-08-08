@@ -1,0 +1,4 @@
+cedula,tipo_aporte,periodo,monto,estado
+1234567890,Aporte Ordinario,2024-01-01,25.00,pendiente
+0987654321,Aporte Extraordinario,2024-02-01,50.00,pagado
+1122334455,Nuevo Ingreso,2024-03-01,100.00,pendiente
