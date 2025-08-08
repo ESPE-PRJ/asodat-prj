@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Filament\Facades\Filament;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class SociosResource extends Resource
 {
@@ -392,6 +397,15 @@ class SociosResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('exportPdf')
+                    ->label('Descargar Lista PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('success')
+                    ->action(function () {
+                        return self::generateSociosPdf();
+                    }),
+            ])
             ->defaultSort('created_at', 'desc');
     }
 
@@ -410,5 +424,22 @@ class SociosResource extends Resource
             'view' => Pages\ViewSocios::route('/{record}'),
             'edit' => Pages\EditSocios::route('/{record}/edit'),
         ];
+    }
+
+    public static function generateSociosPdf()
+    {
+        $socios = Socio::with('user.roles')
+            ->orderBy('apellidos_nombres')
+            ->get();
+
+        $pdf = Pdf::loadView('pdf.lista-socios', compact('socios'));
+
+        $filename = 'lista-socios-' . date('Y-m-d') . '.pdf';
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $filename, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

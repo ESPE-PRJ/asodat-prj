@@ -145,7 +145,7 @@ class NoticiaResource extends Resource
                         $now = now();
                         $desde = $record->publicar_desde;
                         $hasta = $record->publicar_hasta;
-                        
+
                         return $now >= $desde && ($hasta === null || $now <= $hasta);
                     })
                     ->trueIcon('heroicon-o-check-circle')
