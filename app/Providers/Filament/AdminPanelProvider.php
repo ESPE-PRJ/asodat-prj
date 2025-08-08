@@ -23,6 +23,7 @@ use App\Filament\Pages\Dashboard\Admin;
 use App\Filament\Pages\Dashboard\Presidente;
 use App\Filament\Pages\Dashboard\Socio;
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\MyProfilePage;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Validation\Rules\Password;
 
@@ -46,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
                 Admin::class,
                 Presidente::class,
                 Socio::class,
+                MyProfilePage::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])
@@ -69,11 +71,11 @@ class AdminPanelProvider extends PanelProvider
                 BreezyCore::make()
                     ->myProfile(
                         shouldRegisterUserMenu: true,
-                        userMenuLabel: 'Cuenta',
+                        userMenuLabel: 'Mi Cuenta',
                         shouldRegisterNavigation: false,
-                        navigationGroup: 'Settings',
+                        navigationGroup: 'Perfil',
                         hasAvatars: false,
-                        slug: 'profile'
+                        slug: 'mi-perfil'
                     )
                     ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)],
