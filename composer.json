@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.3",
         "althinect/filament-spatie-roles-permissions": "^2.3",
+        "barryvdh/laravel-dompdf": "^3.1",
         "bezhansalleh/filament-shield": "^3.3",
         "filament/filament": "3.3.33",
         "inertiajs/inertia-laravel": "^2.0.4",
@@ -16,6 +17,7 @@
         "livewire/livewire": "^3.6.4",
         "owen-it/laravel-auditing": "^14.0",
         "predis/predis": "^3.1",
+        "tapp/filament-auditing": "^3.1",
         "tightenco/ziggy": "^2.5.3"
     },
     "require-dev": {
