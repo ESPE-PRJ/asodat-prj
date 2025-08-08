@@ -23,6 +23,7 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
 
 class AporteResource extends Resource
 {
@@ -40,25 +41,29 @@ class AporteResource extends Resource
 
     public static function canAccess(): bool
     {
-        $user = auth()->user();
+        /** @var \App\Models\User */
+        $user = Auth::user();
         return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
     }
 
     public static function canCreate(): bool
     {
-        $user = auth()->user();
+        /** @var \App\Models\User */
+        $user = Auth::user();
         return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
     }
 
     public static function canDelete($record): bool
     {
-        $user = auth()->user();
+        /** @var \App\Models\User */
+        $user = Auth::user();
         return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
     }
 
     public static function canEdit($record): bool
     {
-        $user = auth()->user();
+        /** @var \App\Models\User */
+        $user = Auth::user();
         return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
     }
 

@@ -37,26 +37,36 @@ class SociosResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
     }
     public static function canCreate(): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
     }
 
     public static function canEdit($record): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
     }
 
     public static function canDelete($record): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria']);
     }
 
     public static function canView($record): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
     }
 
     public static function form(Form $form): Form

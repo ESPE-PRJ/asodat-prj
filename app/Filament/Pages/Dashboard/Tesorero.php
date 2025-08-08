@@ -6,6 +6,7 @@ use Filament\Pages\Page;
 use App\Models\Socio;
 use App\Models\Aporte;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Tesorero extends Page
 {
@@ -17,7 +18,9 @@ class Tesorero extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasAnyRole(['tesorero', 'super_admin']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['tesorero', 'super_admin']);
     }
 
     public static function shouldRegisterNavigation(): bool

@@ -19,7 +19,9 @@ class Secretaria extends Page
 
     public static function canAccess(): bool
     {
-        return Auth::user()->hasRole('secretaria');
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasRole('secretaria');
     }
 
     public static function shouldRegisterNavigation(): bool
