@@ -25,6 +25,7 @@ use App\Filament\Pages\Dashboard\Secretaria;
 use App\Filament\Pages\Dashboard\Socio;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\MyProfilePage;
+use App\Filament\Pages\AuditoriasSocios;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Validation\Rules\Password;
 
@@ -50,6 +51,7 @@ class AdminPanelProvider extends PanelProvider
                 Secretaria::class,
                 Socio::class,
                 MyProfilePage::class,
+                AuditoriasSocios::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])

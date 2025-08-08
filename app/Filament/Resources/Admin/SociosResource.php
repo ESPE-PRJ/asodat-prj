@@ -422,7 +422,7 @@ class SociosResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AuditsRelationManager::class,
         ];
     }
 

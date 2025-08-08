@@ -28,6 +28,46 @@ class Socio extends Model implements AuditableContract
         'observaciones',
     ];
 
+    // Configuración de auditoría
+    protected $auditInclude = [
+        'cedula',
+        'apellidos_nombres',
+        'campus',
+        'genero',
+        'regimen',
+        'celular',
+        'cargo',
+        'direccion',
+        'fecha_afiliacion',
+        'correo',
+        'tipo_usuario',
+        'cupo',
+        'observaciones',
+    ];
+
+    protected $auditEvents = [
+        'created',
+        'updated',
+        'deleted',
+    ];
+
+    // Etiquetas personalizadas para auditoría
+    protected $auditFields = [
+        'cedula' => 'Cédula',
+        'apellidos_nombres' => 'Apellidos y Nombres',
+        'campus' => 'Campus',
+        'genero' => 'Género',
+        'regimen' => 'Régimen',
+        'celular' => 'Celular',
+        'cargo' => 'Cargo',
+        'direccion' => 'Dirección',
+        'fecha_afiliacion' => 'Fecha de Afiliación',
+        'correo' => 'Correo Electrónico',
+        'tipo_usuario' => 'Tipo de Usuario',
+        'cupo' => 'Cupo',
+        'observaciones' => 'Observaciones',
+    ];
+
     // Relaciones
     public function user()
     {
@@ -42,5 +82,10 @@ class Socio extends Model implements AuditableContract
     public function comprobantes()
     {
         return $this->hasMany(Comprobante::class);
+    }
+
+    public function audits(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(\OwenIt\Auditing\Models\Audit::class, 'auditable')->orderBy('created_at', 'desc');
     }
 }
