@@ -224,10 +224,10 @@ class UsuariosCsvSeeder extends Seeder
 
                 // Determinar qué roles asignar
                 $rolesToAssign = [$spatieRole];
-                
-                // Si el usuario tiene un rol administrativo (secretaria, tesorero, presidente), 
+
+                // Si el usuario tiene un rol administrativo (secretaria, tesorero), 
                 // también debe tener el rol de socio
-                if (in_array($spatieRole, ['secretaria', 'tesorero', 'presidente'])) {
+                if (in_array($spatieRole, ['secretaria', 'tesorero'])) {
                     $rolesToAssign[] = 'socio';
                     $this->command->info("Usuario {$email} - Rol principal: {$spatieRole} + rol socio");
                 } else {
