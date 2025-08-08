@@ -222,10 +222,20 @@ class UsuariosCsvSeeder extends Seeder
 
                 $spatieRole = $spatieRoleMap[$rol] ?? 'socio';
 
-                // Limpiar roles existentes y asignar el nuevo
-                $user->syncRoles([$spatieRole]);
+                // Determinar qué roles asignar
+                $rolesToAssign = [$spatieRole];
+                
+                // Si el usuario tiene un rol administrativo (secretaria, tesorero, presidente), 
+                // también debe tener el rol de socio
+                if (in_array($spatieRole, ['secretaria', 'tesorero', 'presidente'])) {
+                    $rolesToAssign[] = 'socio';
+                    $this->command->info("Usuario {$email} - Rol principal: {$spatieRole} + rol socio");
+                } else {
+                    $this->command->info("Usuario {$email} - Rol asignado: {$spatieRole}");
+                }
 
-                $this->command->info("Usuario {$email} - Rol asignado: {$spatieRole}");
+                // Limpiar roles existentes y asignar los nuevos
+                $user->syncRoles($rolesToAssign);
             }
 
             $count++;
