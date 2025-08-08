@@ -41,7 +41,25 @@ class AporteResource extends Resource
     public static function canAccess(): bool
     {
         $user = auth()->user();
-        return $user && $user->hasAnyRole(['super_admin']);
+        return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
+    }
+
+    public static function canCreate(): bool
+    {
+        $user = auth()->user();
+        return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        $user = auth()->user();
+        return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        $user = auth()->user();
+        return $user && $user->hasAnyRole(['super_admin', 'tesorero']);
     }
 
     public static function form(Form $form): Form
