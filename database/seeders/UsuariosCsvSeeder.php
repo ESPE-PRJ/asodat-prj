@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Socio;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UsuariosCsvSeeder extends Seeder
 {
@@ -59,6 +60,10 @@ class UsuariosCsvSeeder extends Seeder
 
     public function run()
     {
+        // Primero, asegurar que los roles existan
+        $this->command->info("🔧 Verificando y creando roles de Spatie...");
+        $this->crearRolesSpatie();
+
         $this->command->info("→ Cargando contraseñas desde iniciosesion_old.csv…");
 
         // 1) Lee el CSV de inicios de sesión para mapear cedula → contraseña
@@ -193,8 +198,8 @@ class UsuariosCsvSeeder extends Seeder
 
             // Obtener contraseña del array o usar una por defecto
             $password = $passwords[$cedula] ?? 'password123';
-            
-            User::updateOrCreate(
+
+            $user = User::updateOrCreate(
                 ['email' => $email],
                 [
                     'socio_id' => $socio->id,
@@ -204,9 +209,59 @@ class UsuariosCsvSeeder extends Seeder
                 ]
             );
 
+            // Asignar rol usando Spatie Laravel Permission
+            if ($user->wasRecentlyCreated || !$user->hasRole($rol)) {
+                // Mapear roles del CSV a roles de Spatie
+                $spatieRoleMap = [
+                    'administrador' => 'super_admin',
+                    'presidente' => 'presidente',
+                    'tesorero' => 'tesorero',
+                    'secretaria' => 'secretaria',
+                    'socio' => 'socio'
+                ];
+
+                $spatieRole = $spatieRoleMap[$rol] ?? 'socio';
+
+                // Limpiar roles existentes y asignar el nuevo
+                $user->syncRoles([$spatieRole]);
+
+                $this->command->info("Usuario {$email} - Rol asignado: {$spatieRole}");
+            }
+
             $count++;
         }
 
         $this->command->info("Importación de usuarios completada. Total: {$count}");
+    }
+
+    /**
+     * Crea los roles de Spatie si no existen
+     */
+    private function crearRolesSpatie()
+    {
+        $roles = [
+            'super_admin',
+            'presidente',
+            'socio',
+            'secretaria',
+            'tesorero'
+        ];
+
+        $rolesCreados = 0;
+        foreach ($roles as $rol) {
+            if (!Role::where('name', $rol)->exists()) {
+                Role::create(['name' => $rol]);
+                $rolesCreados++;
+                $this->command->info("✅ Rol '{$rol}' creado");
+            } else {
+                $this->command->info("ℹ️  Rol '{$rol}' ya existe");
+            }
+        }
+
+        if ($rolesCreados > 0) {
+            $this->command->info("🎉 Se crearon {$rolesCreados} roles nuevos");
+        } else {
+            $this->command->info("✅ Todos los roles ya existían");
+        }
     }
 }
