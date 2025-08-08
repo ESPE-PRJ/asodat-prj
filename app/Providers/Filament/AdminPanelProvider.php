@@ -22,6 +22,7 @@ use App\Filament\Pages\Index;
 use App\Filament\Pages\Dashboard\Admin;
 use App\Filament\Pages\Dashboard\Presidente;
 use App\Filament\Pages\Dashboard\Socio;
+use App\Filament\Pages\Auth\Login;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Validation\Rules\Password;
 
@@ -33,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('sys')
-            ->login()
+            ->login(Login::class)
             ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
@@ -47,8 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 Socio::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
