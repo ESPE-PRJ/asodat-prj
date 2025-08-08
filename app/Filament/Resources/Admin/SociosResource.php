@@ -32,7 +32,26 @@ class SociosResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'presidente']);
+        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
+    }
+    public static function canCreate(): bool
+    {
+        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
+    }
+
+    public static function canView($record): bool
+    {
+        return auth()->user()->hasAnyRole(['super_admin', 'secretaria']);
     }
 
     public static function form(Form $form): Form
@@ -329,7 +348,6 @@ class SociosResource extends Resource
                 Tables\Columns\TextColumn::make('user.roles')
                     ->label('Roles')
                     ->formatStateUsing(function ($record) {
-                        // Acceder directamente al usuario asociado al socio
                         $user = User::where('socio_id', $record->id)->first();
                         if (!$user) {
                             return 'sin datos';

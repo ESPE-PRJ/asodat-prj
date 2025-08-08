@@ -19,6 +19,11 @@ class Presidente extends Page
         return auth()->user()->hasAnyRole(['presidente', 'super_admin']);
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // Ocultar del menú lateral para simplificar
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [

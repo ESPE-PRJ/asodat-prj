@@ -41,7 +41,7 @@ class AporteResource extends Resource
     public static function canAccess(): bool
     {
         $user = auth()->user();
-        return $user && $user->hasAnyRole(['super_admin', 'presidente']);
+        return $user && $user->hasAnyRole(['super_admin']);
     }
 
     public static function form(Form $form): Form

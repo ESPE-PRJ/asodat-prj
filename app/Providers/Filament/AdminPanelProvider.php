@@ -21,6 +21,7 @@ use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugi
 use App\Filament\Pages\Index;
 use App\Filament\Pages\Dashboard\Admin;
 use App\Filament\Pages\Dashboard\Presidente;
+use App\Filament\Pages\Dashboard\Secretaria;
 use App\Filament\Pages\Dashboard\Socio;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\MyProfilePage;
@@ -46,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
                 Index::class,
                 Admin::class,
                 Presidente::class,
+                Secretaria::class,
                 Socio::class,
                 MyProfilePage::class,
             ])

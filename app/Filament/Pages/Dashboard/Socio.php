@@ -18,6 +18,11 @@ class Socio extends Page
         return auth()->user()->hasRole('socio');
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // Ocultar del menú lateral para mantener solo lo esencial
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
