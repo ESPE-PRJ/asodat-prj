@@ -22,11 +22,6 @@ return new class extends Migration {
                 ->after('password')
                 ->default('socio');
 
-
-            $table
-                ->timestamp('ultimo_login')
-                ->after('rol')
-                ->nullable();
         });
     }
 
@@ -37,7 +32,6 @@ return new class extends Migration {
             $table->dropColumn('socio_id');
 
             $table->dropColumn('rol');
-            $table->dropColumn('ultimo_login');
         });
     }
 };

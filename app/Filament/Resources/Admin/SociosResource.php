@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Filament\Facades\Filament;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class SociosResource extends Resource
 {
@@ -32,7 +37,36 @@ class SociosResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasAnyRole(['super_admin', 'presidente']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+    }
+    public static function canCreate(): bool
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria']);
+    }
+
+    public static function canView($record): bool
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['super_admin', 'secretaria', 'tesorero']);
     }
 
     public static function form(Form $form): Form
@@ -329,7 +363,6 @@ class SociosResource extends Resource
                 Tables\Columns\TextColumn::make('user.roles')
                     ->label('Roles')
                     ->formatStateUsing(function ($record) {
-                        // Acceder directamente al usuario asociado al socio
                         $user = User::where('socio_id', $record->id)->first();
                         if (!$user) {
                             return 'sin datos';
@@ -374,13 +407,22 @@ class SociosResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('exportPdf')
+                    ->label('Descargar Lista PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('success')
+                    ->action(function () {
+                        return self::generateSociosPdf();
+                    }),
+            ])
             ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AuditsRelationManager::class,
         ];
     }
 
@@ -392,5 +434,22 @@ class SociosResource extends Resource
             'view' => Pages\ViewSocios::route('/{record}'),
             'edit' => Pages\EditSocios::route('/{record}/edit'),
         ];
+    }
+
+    public static function generateSociosPdf()
+    {
+        $socios = Socio::with('user.roles')
+            ->orderBy('apellidos_nombres')
+            ->get();
+
+        $pdf = Pdf::loadView('pdf.lista-socios', compact('socios'));
+
+        $filename = 'lista-socios-' . date('Y-m-d') . '.pdf';
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $filename, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

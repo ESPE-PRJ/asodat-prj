@@ -5,6 +5,7 @@ namespace App\Filament\Pages\Dashboard;
 use Filament\Pages\Page;
 use App\Filament\Widgets\Dashboard\PresidenteWidgets;
 use App\Filament\Widgets\Dashboard\Charts\AportesStats;
+use Illuminate\Support\Facades\Auth;
 
 class Presidente extends Page
 {
@@ -16,7 +17,14 @@ class Presidente extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasAnyRole(['presidente', 'super_admin']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasAnyRole(['presidente', 'super_admin']);
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // Ocultar del menú lateral para simplificar
     }
 
     protected function getHeaderWidgets(): array

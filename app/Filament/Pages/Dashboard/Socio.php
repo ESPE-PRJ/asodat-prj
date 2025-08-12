@@ -4,6 +4,7 @@ namespace App\Filament\Pages\Dashboard;
 
 use Filament\Pages\Page;
 use App\Filament\Widgets\Dashboard\SocioWidgets;
+use Illuminate\Support\Facades\Auth;
 
 class Socio extends Page
 {
@@ -15,7 +16,14 @@ class Socio extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasRole('socio');
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        return $user && $user->hasRole('socio');
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // Ocultar del menú lateral para mantener solo lo esencial
     }
 
     protected function getHeaderWidgets(): array

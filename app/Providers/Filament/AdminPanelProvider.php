@@ -21,7 +21,11 @@ use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugi
 use App\Filament\Pages\Index;
 use App\Filament\Pages\Dashboard\Admin;
 use App\Filament\Pages\Dashboard\Presidente;
+use App\Filament\Pages\Dashboard\Secretaria;
 use App\Filament\Pages\Dashboard\Socio;
+use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\MyProfilePage;
+use App\Filament\Pages\AuditoriasSocios;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Validation\Rules\Password;
 
@@ -33,22 +37,25 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('sys')
-            ->login()
+            ->login(Login::class)
             ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             // ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Index::class,
                 Admin::class,
                 Presidente::class,
+                Secretaria::class,
                 Socio::class,
+                MyProfilePage::class,
+                AuditoriasSocios::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -69,11 +76,11 @@ class AdminPanelProvider extends PanelProvider
                 BreezyCore::make()
                     ->myProfile(
                         shouldRegisterUserMenu: true,
-                        userMenuLabel: 'Cuenta',
+                        userMenuLabel: 'Mi Cuenta',
                         shouldRegisterNavigation: false,
-                        navigationGroup: 'Settings',
+                        navigationGroup: 'Perfil',
                         hasAvatars: false,
-                        slug: 'profile'
+                        slug: 'mi-perfil'
                     )
                     ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)],
